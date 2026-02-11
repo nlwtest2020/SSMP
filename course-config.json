@@ -1,0 +1,201 @@
+{
+  "course": {
+    "title": "Interactive Learning Course",
+    "sections": [
+      {
+        "type": "video",
+        "id": "video-1",
+        "label": "Part 1 of 3",
+        "title": "Introduction to Message Framing",
+        "description": "Watch the video above to learn about how messages are framed and why it matters in communication. When you're ready, continue to the first quiz.",
+        "youtube_id": "",
+        "placeholder_text": "Part 1: Introduction Video",
+        "button_text": "Continue to Quiz →"
+      },
+      {
+        "type": "quiz-categorization",
+        "id": "quiz-1",
+        "label": "Quiz 1 — Knowledge Check",
+        "title": "Safer, Stronger, More Prosperous",
+        "instructions": "Read each statement about U.S. exchange programs and decide: does this make America Safer, Stronger, or More Prosperous?",
+        "options": ["Safer", "Stronger", "More Prosperous"],
+        "questions": [
+          {
+            "id": 1,
+            "statement": "89% of countries in our workforce exchanges now prefer American tech and training, setting the U.S. as the global standard.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "That's right! When other countries adopt American standards and prefer U.S. approaches, it reinforces America's global leadership and influence. The key phrase here is 'setting the U.S. as the global standard' — that's about positioning and strength on the world stage.",
+              "Safer": "Not quite. While global influence can indirectly support security, this statement is really about America's leadership position — other countries choosing U.S. tech and training as the standard. That's about influence and strength, not safety. The correct answer is Stronger.",
+              "More Prosperous": "Close, but not quite. Tech and training adoption could eventually create economic benefits, but the emphasis here is on the U.S. being seen as the global standard — that's about leadership and influence, not direct economic returns. The correct answer is Stronger."
+            }
+          },
+          {
+            "id": 2,
+            "statement": "Entrepreneurship exchanges created $2.8B in partnerships and 45K U.S. jobs through global entrepreneur collaboration.",
+            "correct": "More Prosperous",
+            "feedback": {
+              "More Prosperous": "Exactly! The dollar signs are a strong signal here. $2.8 billion in partnerships and 45,000 U.S. jobs are direct economic outcomes. Whenever you see revenue, jobs, or investment figures, think More Prosperous.",
+              "Safer": "Not this one. There's no security or stability angle in this statement — it's all about money and jobs. $2.8B in partnerships and 45K jobs are economic indicators, which map to More Prosperous.",
+              "Stronger": "Good instinct — collaboration does strengthen relationships. But the statement leads with $2.8B and 45K jobs, which are concrete economic outcomes. When the headline numbers are dollars and jobs, that's More Prosperous."
+            }
+          },
+          {
+            "id": 3,
+            "statement": "Fellows enhance transatlantic ties through partnerships between European and American business leaders.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "Correct! 'Enhancing transatlantic ties' and building partnerships between leaders is about deepening alliances and strengthening America's global relationships. That's the core of what Stronger means in this framework.",
+              "Safer": "Transatlantic ties do contribute to a more stable world, but this statement is focused on relationship-building between business leaders — that's about alliance strength and influence, not security. The correct answer is Stronger.",
+              "More Prosperous": "Business leaders are involved, so the economic angle is tempting. But the statement emphasizes 'ties' and 'partnerships' as relationship outcomes, not financial ones. No dollar figures, no jobs — this is about strengthening alliances. The correct answer is Stronger."
+            }
+          },
+          {
+            "id": 4,
+            "statement": "Educational exchanges built pro-democracy networks in 47 nations, fostering civic resilience and reducing the appeal of violent extremism.",
+            "correct": "Safer",
+            "feedback": {
+              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to global stability, which directly makes America safer.",
+              "Stronger": "Pro-democracy networks do strengthen institutions, but the clincher here is 'reducing the appeal of violent extremism.' That's explicitly about security and safety. When you see language about countering threats or extremism, think Safer.",
+              "More Prosperous": "This one has no economic indicators at all — no dollars, jobs, or trade. It's focused on democracy, civic resilience, and countering extremism, all of which are security outcomes. The correct answer is Safer."
+            }
+          },
+          {
+            "id": 5,
+            "statement": "Eastern Europe programs stabilized 12 regions via education and training, reducing migration pressures on U.S. borders.",
+            "correct": "Safer",
+            "feedback": {
+              "Safer": "Right! Two safety signals here: 'stabilized regions' and 'reducing migration pressures on U.S. borders.' Both are about security and stability — stabilization abroad reduces risks at home.",
+              "Stronger": "Stabilization might feel like making America 'stronger,' but look at the second half: 'reducing migration pressures on U.S. borders.' That's a direct homeland security framing. Regional stability plus border security equals Safer.",
+              "More Prosperous": "Education and training can have economic benefits, but this statement doesn't mention any. It's focused on stabilizing regions and reducing border pressures — both security outcomes. The correct answer is Safer."
+            }
+          },
+          {
+            "id": 6,
+            "statement": "Foreign study programs earned U.S. universities $780M and international students founded 3,200 U.S.-based companies.",
+            "correct": "More Prosperous",
+            "feedback": {
+              "More Prosperous": "Nailed it! $780M in revenue and 3,200 new companies are textbook economic outcomes. This is as clear-cut as More Prosperous gets — direct financial returns flowing back to the U.S.",
+              "Safer": "There's nothing in this statement related to security or stability. It's all about money coming into universities and companies being created. Both are economic outcomes, so the correct answer is More Prosperous.",
+              "Stronger": "International education does build soft power and influence, but this statement is quantifying the financial return — $780M and 3,200 companies. When the data points are economic, go with More Prosperous."
+            }
+          },
+          {
+            "id": 7,
+            "statement": "78% of firms from our professional exchanges now adopt U.S. business and regulatory standards as their industry model.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "Exactly right! When foreign firms adopt American standards as their model, that's U.S. influence expanding globally. Standard-setting is one of the clearest forms of global strength and leadership.",
+              "Safer": "Regulatory standards might sound like they relate to safety, but this is about U.S. business practices being adopted as the global model. That's influence and leadership, not security. The correct answer is Stronger.",
+              "More Prosperous": "Adopting U.S. business standards could eventually make trade easier, but the statement emphasizes the adoption itself — 78% of firms looking to America as the model. That's about influence and standard-setting, which is Stronger."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-2",
+        "label": "Part 2 of 3",
+        "title": "The Framing Spectrum",
+        "description": "This section explores how messages exist on a spectrum from highly framed to completely unframed. Pay attention to the examples — you'll be asked to rate one next.",
+        "youtube_id": "",
+        "placeholder_text": "Part 2: Deep Dive Video",
+        "button_text": "Continue to Quiz →"
+      },
+      {
+        "type": "quiz-slider",
+        "id": "quiz-2",
+        "label": "Quiz 2 — Calibration Exercise",
+        "title": "Tone Slider: How Framed Is This Message?",
+        "instructions": "Read each statement and rate how 'framed' it is on a scale from 0 (completely non-framed, neutral) to 100 (heavily framed, strategic America-first messaging). Drag the slider to where you think it falls.",
+        "scale_labels": {
+          "low": "Non-Framed",
+          "high": "Framed"
+        },
+        "hint": "0 = purely neutral, 100 = heavily framed",
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "Through exchange, participants develop leadership and understanding—building trust, innovation, and opportunity between the U.S. and global partners.",
+            "correct_tier": "mid",
+            "feedback": {
+              "non_framed": "This one's actually mid-tier. It reads softly, but words like 'leadership,' 'innovation,' and 'opportunity' are doing quiet strategic work — they frame exchange as purposeful, not just a personal experience. And 'global partners' positions the U.S. as a player on the world stage. It's subtle, but it's there.",
+              "mid": "Good call — this sits in the middle. It's not pushing an America-first angle, but 'leadership,' 'innovation,' and 'opportunity' nudge it above purely neutral. 'Global partners' also adds a diplomatic tone that you wouldn't find in unframed personal storytelling.",
+              "framed": "This one's actually mid-tier, not heavily framed. While 'leadership' and 'innovation' have a strategic flavor, the tone stays collaborative — 'trust,' 'understanding,' 'between the U.S. and global partners.' Compare it to statements that say 'defend U.S. interests' or 'national resilience' — that's what heavy framing sounds like."
+            }
+          },
+          {
+            "id": 2,
+            "statement": "Exchange changes lives—students discover new cultures, make lifelong friends, and return home inspired to make a difference in their communities.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Exactly right — this is textbook non-framed. 'New cultures,' 'lifelong friends,' 'inspired to make a difference' — it's pure personal experience. No strategy, no national interest, no policy language. This is what exchange messaging sounds like before any framing is applied.",
+              "mid": "This one's actually non-framed. 'Inspired to make a difference' might sound purposeful, but the whole statement stays at the personal level — cultures, friends, communities. There's no hint of U.S. interests, competitiveness, or strategic goals. That's what keeps it at the bottom of the scale.",
+              "framed": "This is about as unframed as it gets. There's no strategic language anywhere — 'new cultures,' 'lifelong friends,' 'make a difference in their communities' is entirely personal storytelling. When you see language like this with no mention of national interests or policy outcomes, that's your signal it's non-framed."
+            }
+          },
+          {
+            "id": 3,
+            "statement": "Our programs connect leaders, educators, and innovators across borders, strengthening cooperation and expanding shared prosperity and progress.",
+            "correct_tier": "mid",
+            "feedback": {
+              "non_framed": "This one lands mid-tier. It feels balanced because of words like 'shared' and 'cooperation,' but 'leaders, educators, and innovators' elevates the audience beyond personal stories, and 'prosperity and progress' are policy-level words. It's making a case — just a collaborative one.",
+              "mid": "Good read — this is solidly mid-tier. 'Shared prosperity and progress' introduces a policy angle, and 'leaders, educators, and innovators' elevates the tone. But 'cooperation' and 'shared' keep it framed as mutual benefit rather than American advantage. That balance is what makes it mid-tier.",
+              "framed": "This one's actually mid-tier. 'Prosperity and progress' sound strategic, but notice 'shared' and 'cooperation' — the message consistently frames exchange as two-way, not America-first. Compare it to statements that name 'U.S. security' or 'national resilience' directly and you'll see the difference."
+            }
+          },
+          {
+            "id": 4,
+            "statement": "Investing in language and leadership exchanges builds a competitive workforce ready to defend U.S. interests and promote national resilience worldwide.",
+            "correct_tier": "framed",
+            "feedback": {
+              "non_framed": "This one is heavily framed. Look at what's packed in here: 'competitive workforce' treats people as strategic assets, 'defend U.S. interests' is explicitly America-first, and 'national resilience' is security language. Even the opening word 'investing' frames exchange as a return on investment for the U.S., not a mutual benefit.",
+              "mid": "This actually lands in the framed tier. 'Competitive workforce' and 'national resilience' are doing heavy lifting, and 'defend U.S. interests' is about as direct as America-first language gets. Mid-tier statements talk about cooperation and shared benefit — this one is squarely about what the U.S. gets out of it.",
+              "framed": "Spot on — this is clearly in the framed tier. 'Competitive workforce,' 'defend U.S. interests,' 'national resilience' — every major phrase positions exchange as a tool for American strategic advantage. The word 'investing' at the start seals it, framing the whole thing as an ROI argument for the U.S."
+            }
+          },
+          {
+            "id": 5,
+            "statement": "From new foods to first snowfalls, every exchange story reminds us how shared experiences build empathy, curiosity, and lasting friendships.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Perfect — this is the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'curiosity,' 'lasting friendships' — it's entirely personal and experiential. There's zero strategic content. This is what purely non-framed exchange messaging looks like.",
+              "mid": "This one's actually non-framed. 'New foods,' 'first snowfalls,' and 'lasting friendships' are as personal and apolitical as it gets. There's no policy vocabulary, no national interest angle, nothing about what the U.S. gains. When the imagery is this concrete and human, you're at the bottom of the scale.",
+              "framed": "This is actually the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'friendships' — there's no strategic content at all. Compare the vocabulary here to statements about 'U.S. security' or 'competitive workforce' and you can see the full distance between non-framed and framed."
+            }
+          },
+          {
+            "id": 6,
+            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and global stability.",
+            "correct_tier": "framed",
+            "feedback": {
+              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'global stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
+              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'global stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
+              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and global stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-3",
+        "label": "Part 3 of 3",
+        "title": "Wrapping Up",
+        "description": "Great work getting through the course. Watch this final video for key takeaways and how to apply what you've learned.",
+        "youtube_id": "",
+        "placeholder_text": "Part 3: Summary & Takeaways",
+        "button_text": "Finish Course ✓"
+      }
+    ],
+    "completion": {
+      "icon": "🎓",
+      "title": "Course Complete!",
+      "description": "You've finished the Message Framing module. You can now identify and analyze framing techniques in everyday communication."
+    }
+  }
+}

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Learning Course</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1a5276;
+    --red: #c0392b;
+    --green: #27864a;
+    --gold: #d4a017;
+    --cream: #f5f0e8;
+    --dark: #1a1a1a;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--blue);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .course-container {
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+  }
+
+  /* Main content frame */
+  .main-frame {
+    position: relative;
+    z-index: 1;
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .progress-step {
+    flex: 1;
+    height: 6px;
+    background: #d5cfc5;
+    border-radius: 3px;
+    transition: background 0.5s ease;
+  }
+
+  .progress-step.completed { background: var(--green); }
+  .progress-step.active { background: var(--gold); }
+
+  /* Video area */
+  .video-container {
+    background: var(--dark);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    gap: 12px;
+  }
+
+  .video-placeholder svg {
+    width: 64px;
+    height: 64px;
+    opacity: 0.4;
+  }
+
+  .video-placeholder span {
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* Section title */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .section-instructions {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  /* Step containers */
+  .step {
+    display: none;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .step.active {
+    display: block;
+  }
+
+  /* Quiz styles */
+  .quiz-question {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .quiz-counter {
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  /* Multiple choice */
+  .mc-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .mc-option {
+    padding: 14px 18px;
+    background: white;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .mc-option:hover {
+    border-color: var(--blue);
+    background: #f0edea;
+  }
+
+  .mc-option.selected {
+    border-color: var(--blue);
+    background: #e8f0f7;
+  }
+
+  .mc-option.correct {
+    border-color: var(--green);
+    background: #e8f5ec;
+  }
+
+  .mc-option.incorrect {
+    border-color: var(--red);
+    background: #fce8e6;
+  }
+
+  .mc-option:disabled {
+    cursor: default;
+    opacity: 0.85;
+  }
+
+  .mc-option:disabled:hover {
+    background: inherit;
+    border-color: inherit;
+  }
+
+  /* Slider quiz */
+  .slider-container {
+    margin: 24px 0;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 8px;
+  }
+
+  .slider-track {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, var(--blue), var(--gold), var(--red));
+    border-radius: 4px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-top: -10px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  input[type="range"]:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .slider-value {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 16px 0 8px;
+  }
+
+  .slider-hint {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* Feedback area */
+  .feedback {
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 16px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .feedback.show { display: block; }
+
+  .feedback.correct {
+    background: #e8f5ec;
+    border-left: 4px solid var(--green);
+    color: #1a5e2a;
+  }
+
+  .feedback.incorrect {
+    background: #fce8e6;
+    border-left: 4px solid var(--red);
+    color: #8b1a1a;
+  }
+
+  .feedback.neutral {
+    background: #e8f0f7;
+    border-left: 4px solid var(--blue);
+    color: var(--blue);
+  }
+
+  .feedback-icon {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #154360;
+    transform: translateY(-1px);
+  }
+
+  .btn-submit {
+    background: var(--green);
+    color: white;
+  }
+
+  .btn-submit:hover {
+    background: #1e6b3a;
+    transform: translateY(-1px);
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+  }
+
+  .btn:disabled:hover {
+    background: inherit;
+    transform: none;
+  }
+
+  .btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  /* Completion screen */
+  .completion {
+    text-align: center;
+    padding: 40px 20px;
+    display: none;
+  }
+
+  .completion.show {
+    display: block;
+  }
+
+  .completion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+
+  .completion h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .completion p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .score-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 16px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .main-frame { padding: 16px; }
+    .section-title { font-size: 18px; }
+    .slider-value { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="course-container">
+  <div class="main-frame">
+    <!-- Progress -->
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <!-- Dynamic content container -->
+    <div id="course-content"></div>
+
+    <!-- Completion screen -->
+    <div class="completion" id="completion"></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
