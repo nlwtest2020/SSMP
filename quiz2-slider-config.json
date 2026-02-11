@@ -1,0 +1,75 @@
+{
+  "quiz_title": "Tone Slider: How Framed Is This Message?",
+  "quiz_instructions": "Read each statement and rate how 'framed' it is on a scale from 0 (completely non-framed, neutral) to 100 (heavily framed, strategic America-first messaging). Drag the slider to where you think it falls.",
+  "scale_labels": {
+    "low": "Non-Framed",
+    "high": "Framed"
+  },
+  "tiers": {
+    "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+    "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+    "framed": { "min": 70, "max": 100, "label": "Framed" }
+  },
+  "questions": [
+    {
+      "id": 1,
+      "statement": "Through exchange, participants develop leadership and understanding—building trust, innovation, and opportunity between the U.S. and global partners.",
+      "correct_tier": "mid",
+      "feedback": {
+        "non_framed": "This one's actually mid-tier. It reads softly, but words like 'leadership,' 'innovation,' and 'opportunity' are doing quiet strategic work — they frame exchange as purposeful, not just a personal experience. And 'global partners' positions the U.S. as a player on the world stage. It's subtle, but it's there.",
+        "mid": "Good call — this sits in the middle. It's not pushing an America-first angle, but 'leadership,' 'innovation,' and 'opportunity' nudge it above purely neutral. 'Global partners' also adds a diplomatic tone that you wouldn't find in unframed personal storytelling.",
+        "framed": "This one's actually mid-tier, not heavily framed. While 'leadership' and 'innovation' have a strategic flavor, the tone stays collaborative — 'trust,' 'understanding,' 'between the U.S. and global partners.' Compare it to statements that say 'defend U.S. interests' or 'national resilience' — that's what heavy framing sounds like."
+      }
+    },
+    {
+      "id": 2,
+      "statement": "Exchange changes lives—students discover new cultures, make lifelong friends, and return home inspired to make a difference in their communities.",
+      "correct_tier": "non_framed",
+      "feedback": {
+        "non_framed": "Exactly right — this is textbook non-framed. 'New cultures,' 'lifelong friends,' 'inspired to make a difference' — it's pure personal experience. No strategy, no national interest, no policy language. This is what exchange messaging sounds like before any framing is applied.",
+        "mid": "This one's actually non-framed. 'Inspired to make a difference' might sound purposeful, but the whole statement stays at the personal level — cultures, friends, communities. There's no hint of U.S. interests, competitiveness, or strategic goals. That's what keeps it at the bottom of the scale.",
+        "framed": "This is about as unframed as it gets. There's no strategic language anywhere — 'new cultures,' 'lifelong friends,' 'make a difference in their communities' is entirely personal storytelling. When you see language like this with no mention of national interests or policy outcomes, that's your signal it's non-framed."
+      }
+    },
+    {
+      "id": 3,
+      "statement": "Our programs connect leaders, educators, and innovators across borders, strengthening cooperation and expanding shared prosperity and progress.",
+      "correct_tier": "mid",
+      "feedback": {
+        "non_framed": "This one lands mid-tier. It feels balanced because of words like 'shared' and 'cooperation,' but 'leaders, educators, and innovators' elevates the audience beyond personal stories, and 'prosperity and progress' are policy-level words. It's making a case — just a collaborative one.",
+        "mid": "Good read — this is solidly mid-tier. 'Shared prosperity and progress' introduces a policy angle, and 'leaders, educators, and innovators' elevates the tone. But 'cooperation' and 'shared' keep it framed as mutual benefit rather than American advantage. That balance is what makes it mid-tier.",
+        "framed": "This one's actually mid-tier. 'Prosperity and progress' sound strategic, but notice 'shared' and 'cooperation' — the message consistently frames exchange as two-way, not America-first. Compare it to statements that name 'U.S. security' or 'national resilience' directly and you'll see the difference."
+      }
+    },
+    {
+      "id": 4,
+      "statement": "Investing in language and leadership exchanges builds a competitive workforce ready to defend U.S. interests and promote national resilience worldwide.",
+      "correct_tier": "framed",
+      "feedback": {
+        "non_framed": "This one is heavily framed. Look at what's packed in here: 'competitive workforce' treats people as strategic assets, 'defend U.S. interests' is explicitly America-first, and 'national resilience' is security language. Even the opening word 'investing' frames exchange as a return on investment for the U.S., not a mutual benefit.",
+        "mid": "This actually lands in the framed tier. 'Competitive workforce' and 'national resilience' are doing heavy lifting, and 'defend U.S. interests' is about as direct as America-first language gets. Mid-tier statements talk about cooperation and shared benefit — this one is squarely about what the U.S. gets out of it.",
+        "framed": "Spot on — this is clearly in the framed tier. 'Competitive workforce,' 'defend U.S. interests,' 'national resilience' — every major phrase positions exchange as a tool for American strategic advantage. The word 'investing' at the start seals it, framing the whole thing as an ROI argument for the U.S."
+      }
+    },
+    {
+      "id": 5,
+      "statement": "From new foods to first snowfalls, every exchange story reminds us how shared experiences build empathy, curiosity, and lasting friendships.",
+      "correct_tier": "non_framed",
+      "feedback": {
+        "non_framed": "Perfect — this is the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'curiosity,' 'lasting friendships' — it's entirely personal and experiential. There's zero strategic content. This is what purely non-framed exchange messaging looks like.",
+        "mid": "This one's actually non-framed. 'New foods,' 'first snowfalls,' and 'lasting friendships' are as personal and apolitical as it gets. There's no policy vocabulary, no national interest angle, nothing about what the U.S. gains. When the imagery is this concrete and human, you're at the bottom of the scale.",
+        "framed": "This is actually the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'friendships' — there's no strategic content at all. Compare the vocabulary here to statements about 'U.S. security' or 'competitive workforce' and you can see the full distance between non-framed and framed."
+      }
+    },
+    {
+      "id": 6,
+      "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and global stability.",
+      "correct_tier": "framed",
+      "feedback": {
+        "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'global stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
+        "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'global stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
+        "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and global stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
+      }
+    }
+  ]
+}

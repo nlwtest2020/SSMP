@@ -1,0 +1,77 @@
+{
+  "quiz_title": "Safer, Stronger, More Prosperous",
+  "quiz_instructions": "Read each statement about U.S. exchange programs and decide: does this make America Safer, Stronger, or More Prosperous?",
+  "options": ["Safer", "Stronger", "More Prosperous"],
+  "questions": [
+    {
+      "id": 1,
+      "statement": "89% of countries in our workforce exchanges now prefer American tech and training, setting the U.S. as the global standard.",
+      "correct": "Stronger",
+      "feedback": {
+        "Stronger": "That's right! When other countries adopt American standards and prefer U.S. approaches, it reinforces America's global leadership and influence. The key phrase here is 'setting the U.S. as the global standard' — that's about positioning and strength on the world stage.",
+        "Safer": "Not quite. While global influence can indirectly support security, this statement is really about America's leadership position — other countries choosing U.S. tech and training as the standard. That's about influence and strength, not safety. The correct answer is Stronger.",
+        "More Prosperous": "Close, but not quite. Tech and training adoption could eventually create economic benefits, but the emphasis here is on the U.S. being seen as the global standard — that's about leadership and influence, not direct economic returns. The correct answer is Stronger."
+      }
+    },
+    {
+      "id": 2,
+      "statement": "Entrepreneurship exchanges created $2.8B in partnerships and 45K U.S. jobs through global entrepreneur collaboration.",
+      "correct": "More Prosperous",
+      "feedback": {
+        "More Prosperous": "Exactly! The dollar signs are a strong signal here. $2.8 billion in partnerships and 45,000 U.S. jobs are direct economic outcomes. Whenever you see revenue, jobs, or investment figures, think More Prosperous.",
+        "Safer": "Not this one. There's no security or stability angle in this statement — it's all about money and jobs. $2.8B in partnerships and 45K jobs are economic indicators, which map to More Prosperous.",
+        "Stronger": "Good instinct — collaboration does strengthen relationships. But the statement leads with $2.8B and 45K jobs, which are concrete economic outcomes. When the headline numbers are dollars and jobs, that's More Prosperous."
+      }
+    },
+    {
+      "id": 3,
+      "statement": "Fellows enhance transatlantic ties through partnerships between European and American business leaders.",
+      "correct": "Stronger",
+      "feedback": {
+        "Stronger": "Correct! 'Enhancing transatlantic ties' and building partnerships between leaders is about deepening alliances and strengthening America's global relationships. That's the core of what Stronger means in this framework.",
+        "Safer": "Transatlantic ties do contribute to a more stable world, but this statement is focused on relationship-building between business leaders — that's about alliance strength and influence, not security. The correct answer is Stronger.",
+        "More Prosperous": "Business leaders are involved, so the economic angle is tempting. But the statement emphasizes 'ties' and 'partnerships' as relationship outcomes, not financial ones. No dollar figures, no jobs — this is about strengthening alliances. The correct answer is Stronger."
+      }
+    },
+    {
+      "id": 4,
+      "statement": "Educational exchanges built pro-democracy networks in 47 nations, fostering civic resilience and reducing the appeal of violent extremism.",
+      "correct": "Safer",
+      "feedback": {
+        "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to global stability, which directly makes America safer.",
+        "Stronger": "Pro-democracy networks do strengthen institutions, but the clincher here is 'reducing the appeal of violent extremism.' That's explicitly about security and safety. When you see language about countering threats or extremism, think Safer.",
+        "More Prosperous": "This one has no economic indicators at all — no dollars, jobs, or trade. It's focused on democracy, civic resilience, and countering extremism, all of which are security outcomes. The correct answer is Safer."
+      }
+    },
+    {
+      "id": 6,
+      "statement": "Eastern Europe programs stabilized 12 regions via education and training, reducing migration pressures on U.S. borders.",
+      "correct": "Safer",
+      "feedback": {
+        "Safer": "Right! Two safety signals here: 'stabilized regions' and 'reducing migration pressures on U.S. borders.' Both are about security and stability — stabilization abroad reduces risks at home.",
+        "Stronger": "Stabilization might feel like making America 'stronger,' but look at the second half: 'reducing migration pressures on U.S. borders.' That's a direct homeland security framing. Regional stability plus border security equals Safer.",
+        "More Prosperous": "Education and training can have economic benefits, but this statement doesn't mention any. It's focused on stabilizing regions and reducing border pressures — both security outcomes. The correct answer is Safer."
+      }
+    },
+    {
+      "id": 7,
+      "statement": "Foreign study programs earned U.S. universities $780M and international students founded 3,200 U.S.-based companies.",
+      "correct": "More Prosperous",
+      "feedback": {
+        "More Prosperous": "Nailed it! $780M in revenue and 3,200 new companies are textbook economic outcomes. This is as clear-cut as More Prosperous gets — direct financial returns flowing back to the U.S.",
+        "Safer": "There's nothing in this statement related to security or stability. It's all about money coming into universities and companies being created. Both are economic outcomes, so the correct answer is More Prosperous.",
+        "Stronger": "International education does build soft power and influence, but this statement is quantifying the financial return — $780M and 3,200 companies. When the data points are economic, go with More Prosperous."
+      }
+    },
+    {
+      "id": 8,
+      "statement": "78% of firms from our professional exchanges now adopt U.S. business and regulatory standards as their industry model.",
+      "correct": "Stronger",
+      "feedback": {
+        "Stronger": "Exactly right! When foreign firms adopt American standards as their model, that's U.S. influence expanding globally. Standard-setting is one of the clearest forms of global strength and leadership.",
+        "Safer": "Regulatory standards might sound like they relate to safety, but this is about U.S. business practices being adopted as the global model. That's influence and leadership, not security. The correct answer is Stronger.",
+        "More Prosperous": "Adopting U.S. business standards could eventually make trade easier, but the statement emphasizes the adoption itself — 78% of firms looking to America as the model. That's about influence and standard-setting, which is Stronger."
+      }
+    }
+  ]
+}

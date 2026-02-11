@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Learning Course</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue: #1a5276;
+    --red: #c0392b;
+    --green: #27864a;
+    --gold: #d4a017;
+    --cream: #f5f0e8;
+    --dark: #1a1a1a;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--blue);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .course-container {
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+  }
+
+
+
+  /* Main content frame */
+  .main-frame {
+    position: relative;
+    z-index: 1;
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* Progress bar */
+  .progress-bar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .progress-step {
+    flex: 1;
+    height: 6px;
+    background: #d5cfc5;
+    border-radius: 3px;
+    transition: background 0.5s ease;
+  }
+
+  .progress-step.completed { background: var(--green); }
+  .progress-step.active { background: var(--gold); }
+
+  /* Video area */
+  .video-container {
+    background: var(--dark);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    gap: 12px;
+  }
+
+  .video-placeholder svg {
+    width: 64px;
+    height: 64px;
+    opacity: 0.4;
+  }
+
+  .video-placeholder span {
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  /* Section title */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* Quiz styles */
+  .quiz-area {
+    display: none;
+  }
+
+  .quiz-area.active {
+    display: block;
+  }
+
+  .quiz-question {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* Multiple choice */
+  .mc-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .mc-option {
+    padding: 14px 18px;
+    background: white;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    font-family: inherit;
+  }
+
+  .mc-option:hover {
+    border-color: var(--blue);
+    background: #f0edea;
+  }
+
+  .mc-option.selected {
+    border-color: var(--blue);
+    background: #e8f0f7;
+  }
+
+  .mc-option.correct {
+    border-color: var(--green);
+    background: #e8f5ec;
+  }
+
+  .mc-option.incorrect {
+    border-color: var(--red);
+    background: #fce8e6;
+  }
+
+  .mc-option:disabled {
+    cursor: default;
+    opacity: 0.85;
+  }
+
+  .mc-option:disabled:hover {
+    background: inherit;
+    border-color: inherit;
+  }
+
+  /* Slider quiz */
+  .slider-container {
+    margin: 24px 0;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 8px;
+  }
+
+  .slider-track {
+    position: relative;
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, var(--blue), var(--gold), var(--red));
+    border-radius: 4px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: transparent;
+    position: relative;
+    z-index: 2;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-top: -10px;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .slider-value {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 16px 0 8px;
+  }
+
+  .slider-hint {
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 16px;
+  }
+
+  /* Feedback area */
+  .feedback {
+    padding: 16px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 16px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .feedback.show { display: block; }
+
+  .feedback.correct {
+    background: #e8f5ec;
+    border-left: 4px solid var(--green);
+    color: #1a5e2a;
+  }
+
+  .feedback.incorrect {
+    background: #fce8e6;
+    border-left: 4px solid var(--red);
+    color: #8b1a1a;
+  }
+
+  .feedback.neutral {
+    background: #e8f0f7;
+    border-left: 4px solid var(--blue);
+    color: var(--blue);
+  }
+
+  .feedback-icon {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  /* Buttons */
+  .btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background: #154360;
+    transform: translateY(-1px);
+  }
+
+  .btn-submit {
+    background: var(--green);
+    color: white;
+  }
+
+  .btn-submit:hover {
+    background: #1e6b3a;
+    transform: translateY(-1px);
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+  }
+
+  .btn-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  /* Completion screen */
+  .completion {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .completion-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+
+  .completion h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 8px;
+  }
+
+  .completion p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .score-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 16px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    body { padding: 12px; }
+    .main-frame { padding: 16px; }
+    .section-title { font-size: 18px; }
+    .slider-value { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="course-container">
+  <div class="main-frame">
+    <!-- Progress -->
+    <div class="progress-bar">
+      <div class="progress-step active" id="prog-1"></div>
+      <div class="progress-step" id="prog-2"></div>
+      <div class="progress-step" id="prog-3"></div>
+      <div class="progress-step" id="prog-4"></div>
+      <div class="progress-step" id="prog-5"></div>
+    </div>
+
+    <!-- STEP 1: Intro Video -->
+    <div class="step" id="step-1">
+      <div class="video-container">
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>Part 1: Introduction Video</span>
+        </div>
+      </div>
+      <div class="section-label">Part 1 of 3</div>
+      <div class="section-title">Introduction to Message Framing</div>
+      <div class="section-desc">Watch the video above to learn about how messages are framed and why it matters in communication. When you're ready, continue to the first quiz.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goToStep(2)">Continue to Quiz →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Multiple Choice Quiz -->
+    <div class="step" id="step-2" style="display:none;">
+      <div class="section-label">Quiz 1 — Knowledge Check</div>
+      <div class="section-title">Test Your Understanding</div>
+
+      <div class="quiz-question">Which of the following best describes "message framing" in communication?</div>
+      <div class="mc-options" id="mc-quiz">
+        <button class="mc-option" data-answer="a" onclick="selectMC(this)">The volume and tone used when delivering a message</button>
+        <button class="mc-option" data-answer="b" onclick="selectMC(this)">The way information is structured to emphasize certain aspects over others</button>
+        <button class="mc-option" data-answer="c" onclick="selectMC(this)">The physical setting in which a message is delivered</button>
+        <button class="mc-option" data-answer="d" onclick="selectMC(this)">The number of people who receive the message</button>
+      </div>
+
+      <div class="feedback" id="mc-feedback"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-submit" id="mc-submit" onclick="submitMC()" disabled>Submit Answer</button>
+        <button class="btn btn-primary" id="mc-next" onclick="goToStep(3)" style="display:none;">Continue to Part 2 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Part 2 Video -->
+    <div class="step" id="step-3" style="display:none;">
+      <div class="video-container">
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>Part 2: Deep Dive Video</span>
+        </div>
+      </div>
+      <div class="section-label">Part 2 of 3</div>
+      <div class="section-title">The Framing Spectrum</div>
+      <div class="section-desc">This section explores how messages exist on a spectrum from highly framed to completely unframed. Pay attention to the examples — you'll be asked to rate one next.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goToStep(4)">Continue to Quiz →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Slider Quiz -->
+    <div class="step" id="step-4" style="display:none;">
+      <div class="section-label">Quiz 2 — Calibration Exercise</div>
+      <div class="section-title">Rate This Message</div>
+
+      <div class="quiz-question">"Our company's restructuring will create exciting new opportunities for team members to explore different roles and develop new skills."</div>
+      <p style="font-size:13px; color:#888; margin-bottom:8px; font-style:italic;">How framed or unframed is this message? Drag the slider to rate it.</p>
+
+      <div class="slider-container">
+        <div class="slider-labels">
+          <span>Completely Unframed</span>
+          <span>Highly Framed</span>
+        </div>
+        <div class="slider-track">
+          <input type="range" min="0" max="100" value="50" id="framing-slider" oninput="updateSlider(this.value)">
+        </div>
+        <div class="slider-value" id="slider-val">50</div>
+        <div class="slider-hint">0 = purely neutral, 100 = heavily framed</div>
+      </div>
+
+      <div class="feedback" id="slider-feedback"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-submit" id="slider-submit" onclick="submitSlider()">Submit Rating</button>
+        <button class="btn btn-primary" id="slider-next" onclick="goToStep(5)" style="display:none;">Continue to Part 3 →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Final Video + Completion -->
+    <div class="step" id="step-5" style="display:none;">
+      <div class="video-container">
+        <div class="video-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span>Part 3: Summary & Takeaways</span>
+        </div>
+      </div>
+      <div class="section-label">Part 3 of 3</div>
+      <div class="section-title">Wrapping Up</div>
+      <div class="section-desc">Great work getting through the course. Watch this final video for key takeaways and how to apply what you've learned.</div>
+
+      <div class="completion" id="completion" style="display:none;">
+        <div class="completion-icon">🎓</div>
+        <h2>Course Complete!</h2>
+        <p>You've finished the Message Framing module. You can now identify and analyze framing techniques in everyday communication.</p>
+        <div class="score-badge" id="final-score"></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="showCompletion()">Finish Course ✓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let selectedMC = null;
+  let mcCorrect = false;
+  const correctAnswer = 'b';
+
+  // Step navigation
+  function goToStep(n) {
+    document.querySelectorAll('.step').forEach(s => s.style.display = 'none');
+    document.getElementById('step-' + n).style.display = 'block';
+    document.getElementById('step-' + n).style.animation = 'fadeIn 0.4s ease';
+
+    // Update progress
+    for (let i = 1; i <= 5; i++) {
+      const el = document.getElementById('prog-' + i);
+      el.classList.remove('active', 'completed');
+      if (i < n) el.classList.add('completed');
+      if (i === n) el.classList.add('active');
+    }
+  }
+
+  // Multiple choice
+  function selectMC(btn) {
+    if (btn.disabled) return;
+    document.querySelectorAll('.mc-option').forEach(o => o.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedMC = btn.dataset.answer;
+    document.getElementById('mc-submit').disabled = false;
+  }
+
+  function submitMC() {
+    const options = document.querySelectorAll('.mc-option');
+    options.forEach(o => {
+      o.disabled = true;
+      if (o.dataset.answer === correctAnswer) {
+        o.classList.add('correct');
+      } else if (o.classList.contains('selected') && o.dataset.answer !== correctAnswer) {
+        o.classList.add('incorrect');
+      }
+    });
+
+    mcCorrect = selectedMC === correctAnswer;
+    const fb = document.getElementById('mc-feedback');
+
+    if (mcCorrect) {
+      fb.className = 'feedback show correct';
+      fb.innerHTML = '<span class="feedback-icon">✓</span> <strong>Correct!</strong> Message framing is about how information is structured and presented to emphasize certain aspects. The same facts can lead to very different reactions depending on how they\'re framed — for example, "90% success rate" vs "10% failure rate."';
+    } else {
+      fb.className = 'feedback show incorrect';
+      if (selectedMC === 'a') {
+        fb.innerHTML = '<span class="feedback-icon">✗</span> <strong>Not quite.</strong> Tone and volume relate to delivery style, not framing. Framing is about <em>which aspects</em> of the information are emphasized. The correct answer is B — the way information is structured to highlight certain aspects over others.';
+      } else if (selectedMC === 'c') {
+        fb.innerHTML = '<span class="feedback-icon">✗</span> <strong>Not quite.</strong> The physical setting is part of <em>context</em>, not framing. Framing specifically refers to how the information itself is structured and presented. The correct answer is B.';
+      } else {
+        fb.innerHTML = '<span class="feedback-icon">✗</span> <strong>Not quite.</strong> Audience size relates to reach, not framing. Framing is about how the message content is structured to emphasize certain aspects. The correct answer is B.';
+      }
+    }
+
+    document.getElementById('mc-submit').style.display = 'none';
+    document.getElementById('mc-next').style.display = 'inline-block';
+  }
+
+  // Slider
+  function updateSlider(val) {
+    document.getElementById('slider-val').textContent = val;
+  }
+
+  function submitSlider() {
+    const val = parseInt(document.getElementById('framing-slider').value);
+    const fb = document.getElementById('slider-feedback');
+    const benchmark = 78;
+
+    let diff = Math.abs(val - benchmark);
+    let msg = '';
+
+    if (diff <= 10) {
+      fb.className = 'feedback show correct';
+      msg = `<span class="feedback-icon">✓</span> <strong>Right on target!</strong> You rated this ${val}/100. Most respondents rated this around <strong>${benchmark}/100</strong>. This message is heavily framed — it repackages layoffs as "exciting opportunities" and uses positive language to obscure a potentially negative reality. The framing redirects attention from job loss to growth.`;
+    } else if (diff <= 25) {
+      fb.className = 'feedback show neutral';
+      msg = `<span class="feedback-icon">→</span> <strong>Close!</strong> You rated this ${val}/100. Most respondents said <strong>${benchmark}/100</strong>. This message is quite heavily framed. The phrase "exciting new opportunities" is doing significant work to recast what is likely a difficult restructuring in a positive light. ${val < benchmark ? 'You might be underestimating how much the positive language shapes perception here.' : 'Your instinct that this is framed is right, though most people rate it slightly lower.'}`;
+    } else {
+      fb.className = 'feedback show incorrect';
+      msg = `<span class="feedback-icon">△</span> <strong>Interesting perspective.</strong> You rated this ${val}/100, while most respondents said <strong>${benchmark}/100</strong>. ${val < benchmark ? 'This message is actually quite heavily framed — words like "exciting," "opportunities," and "develop new skills" are all doing work to present a corporate restructuring in a strongly positive light, potentially masking a more difficult reality.' : 'While the message is clearly framed, the benchmark is a bit lower than your rating — some respondents noted that restructuring language is common enough that parts of it read as standard corporate communication rather than heavy framing.'}`;
+    }
+
+    fb.innerHTML = msg;
+    document.getElementById('slider-submit').style.display = 'none';
+    document.getElementById('slider-next').style.display = 'inline-block';
+    document.getElementById('framing-slider').disabled = true;
+  }
+
+  // Completion
+  function showCompletion() {
+    const comp = document.getElementById('completion');
+    comp.style.display = 'block';
+    comp.style.animation = 'fadeIn 0.5s ease';
+
+    const score = document.getElementById('final-score');
+    let points = mcCorrect ? 1 : 0;
+    const sliderVal = parseInt(document.getElementById('framing-slider').value);
+    if (Math.abs(sliderVal - 78) <= 10) points++;
+    else if (Math.abs(sliderVal - 78) <= 25) points += 0.5;
+
+    score.textContent = `Score: ${points}/2 exercises completed accurately`;
+
+    // Mark all progress complete
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('prog-' + i).classList.add('completed');
+      document.getElementById('prog-' + i).classList.remove('active');
+    }
+
+    // Hide the finish button
+    event.target.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
