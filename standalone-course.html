@@ -367,9 +367,82 @@
 
   .btn-row {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
+  }
+
+  .btn-back {
+    background: #888;
+    color: white;
+  }
+
+  .btn-back:hover {
+    background: #666;
+    transform: translateY(-1px);
+  }
+
+  .btn-group-right {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Text input practice */
+  .text-prompt {
+    background: #f8f6f3;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--blue);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .text-input-area {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+  }
+
+  .text-input-area:focus {
+    outline: none;
+    border-color: var(--blue);
+  }
+
+  /* Links and submission */
+  .links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .link-item {
+    display: block;
+    padding: 14px 20px;
+    background: white;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .link-item:hover {
+    border-color: var(--blue);
+    background: #f0edea;
+    transform: translateX(4px);
   }
 
   /* Completion screen */
@@ -488,11 +561,11 @@ const COURSE_CONFIG = {
       {
         "type": "video",
         "id": "video-1",
-        "label": "Part 1 of 3",
+        "label": "Video 1",
         "title": "Introduction to Message Framing",
         "description": "Watch the video above to learn about how messages are framed and why it matters in communication. When you're ready, continue to the first quiz.",
         "youtube_id": "3yzIYI2Ut0Y",
-        "placeholder_text": "Part 1: Introduction Video",
+        "placeholder_text": "Intro Video",
         "button_text": "Continue →"
       },
       {
@@ -500,14 +573,24 @@ const COURSE_CONFIG = {
         "id": "reading-1",
         "label": "Reading Exercise",
         "title": "Compare Foreign Policy Statements",
-        "instructions": "Read and compare these two foreign policy statements",
+        "instructions": "Read and compare these two foreign policy statements carefully",
         "image_path": "images/foreign-policy-comparison.png",
         "timer_seconds": 30
       },
       {
+        "type": "video",
+        "id": "video-2",
+        "label": "Video 2",
+        "title": "Understanding the Framework",
+        "description": "This video introduces the SSMP framework and explains how to categorize messaging.",
+        "youtube_id": "",
+        "placeholder_text": "Video 2",
+        "button_text": "Continue to Quiz →"
+      },
+      {
         "type": "quiz-categorization",
-        "id": "quiz-1",
-        "label": "Quiz 1 — Knowledge Check",
+        "id": "ssmp-quiz",
+        "label": "SSMP Quiz",
         "title": "Safer, Stronger, More Prosperous",
         "instructions": "Read each statement about U.S. exchange programs and decide: does this make America Safer, Stronger, or More Prosperous?",
         "options": ["Safer", "Stronger", "More Prosperous"],
@@ -586,18 +669,58 @@ const COURSE_CONFIG = {
       },
       {
         "type": "video",
-        "id": "video-2",
-        "label": "Part 2 of 3",
-        "title": "The Framing Spectrum",
-        "description": "This section explores how messages exist on a spectrum from highly framed to completely unframed. Pay attention to the examples — you'll be asked to rate one next.",
+        "id": "video-3-tone",
+        "label": "Video 3",
+        "title": "Introduction to Tone",
+        "description": "Learn about tone in messaging and how to recognize different tonal approaches.",
         "youtube_id": "",
-        "placeholder_text": "Part 2: Deep Dive Video",
-        "button_text": "Continue to Quiz →"
+        "placeholder_text": "Video 3 - Tone Intro",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "text-input",
+        "id": "tone-practice-1",
+        "label": "Tone Practice 1",
+        "title": "Write Your First Toned Message",
+        "instructions": "Take the neutral statement below and rewrite it with a stronger tone that emphasizes American benefit.",
+        "prompt": "Exchange programs help students learn about other cultures.",
+        "placeholder": "Type your rewritten message here...",
+        "button_text": "Submit & Continue →"
+      },
+      {
+        "type": "video",
+        "id": "video-4-tone",
+        "label": "Video 4",
+        "title": "Advanced Tone Techniques",
+        "description": "Explore more sophisticated approaches to tone and framing.",
+        "youtube_id": "",
+        "placeholder_text": "Video 4 - Advanced Tone",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "text-input",
+        "id": "tone-practice-2",
+        "label": "Tone Practice 2",
+        "title": "Write Your Second Toned Message",
+        "instructions": "Take this statement and reframe it to emphasize security and stability.",
+        "prompt": "Our exchange programs connect people across borders.",
+        "placeholder": "Type your rewritten message here...",
+        "button_text": "Submit & Continue →"
+      },
+      {
+        "type": "video",
+        "id": "video-5-tone",
+        "label": "Video 5",
+        "title": "Evaluating Tone",
+        "description": "Learn how to evaluate and assess the effectiveness of different tones.",
+        "youtube_id": "",
+        "placeholder_text": "Video 5 - Evaluating Tone",
+        "button_text": "Continue →"
       },
       {
         "type": "quiz-slider",
-        "id": "quiz-2",
-        "label": "Quiz 2 — Calibration Exercise",
+        "id": "tone-multiple-choice",
+        "label": "Tone Multiple Choice",
         "title": "Tone Slider: How Framed Is This Message?",
         "instructions": "Read each statement and rate how 'framed' it is on a scale from 0 (completely non-framed, neutral) to 100 (heavily framed, strategic America-first messaging). Drag the slider to where you think it falls.",
         "scale_labels": {
@@ -675,12 +798,35 @@ const COURSE_CONFIG = {
       },
       {
         "type": "video",
-        "id": "video-3",
-        "label": "Part 3 of 3",
-        "title": "Wrapping Up",
+        "id": "video-6-final",
+        "label": "Video 6",
+        "title": "Final Practice Session",
+        "description": "Watch this final practice session to see all concepts in action.",
+        "youtube_id": "",
+        "placeholder_text": "Video 6 - Final Practice",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "links-submission",
+        "id": "links-submission",
+        "label": "Links & Submission",
+        "title": "Resources and Next Steps",
+        "description": "Review these resources and submit your completed work.",
+        "links": [
+          { "text": "SSMP Framework Guide", "url": "#" },
+          { "text": "Tone Reference Sheet", "url": "#" },
+          { "text": "Additional Examples", "url": "#" }
+        ],
+        "button_text": "Continue →"
+      },
+      {
+        "type": "video",
+        "id": "video-7-wrap",
+        "label": "Video 7",
+        "title": "Wrap Up and Goodbye",
         "description": "Great work getting through the course. Watch this final video for key takeaways and how to apply what you've learned.",
         "youtube_id": "",
-        "placeholder_text": "Part 3: Summary & Takeaways",
+        "placeholder_text": "Video 7 - Wrap Up",
         "button_text": "Finish Course ✓"
       }
     ],
@@ -749,6 +895,10 @@ class CourseApp {
     } else if (section.type === 'quiz-slider') {
       container.innerHTML = this.renderSliderQuiz(section);
       this.setupSliderQuiz(section);
+    } else if (section.type === 'text-input') {
+      container.innerHTML = this.renderTextInput(section);
+    } else if (section.type === 'links-submission') {
+      container.innerHTML = this.renderLinksSubmission(section);
     }
 
     this.updateProgress();
@@ -762,6 +912,10 @@ class CourseApp {
            <span>${section.placeholder_text}</span>
          </div>`;
 
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
     return `
       <div class="step active">
         <div class="video-container">
@@ -771,13 +925,20 @@ class CourseApp {
         <div class="section-title">${section.title}</div>
         <div class="section-desc">${section.description}</div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
+          </div>
         </div>
       </div>
     `;
   }
 
   renderTimedReading(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
     return `
       <div class="step active">
         <div class="reading-container">
@@ -786,6 +947,10 @@ class CourseApp {
           <div class="reading-instructions">${section.instructions}</div>
           <div class="timer-display" id="timer-display">${section.timer_seconds}</div>
           <img src="${section.image_path}" alt="Reading material" class="reading-image">
+        </div>
+        <div class="btn-row" style="margin-top: 20px;">
+          ${backButton}
+          <div class="btn-group-right"></div>
         </div>
       </div>
     `;
@@ -818,6 +983,10 @@ class CourseApp {
     this.currentQuestionIndex = 0;
     this.quizAnswers[section.id] = [];
 
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
     return `
       <div class="step active">
         <div class="section-label">${section.label}</div>
@@ -828,8 +997,11 @@ class CourseApp {
         <div class="mc-options" id="mc-options"></div>
         <div class="feedback" id="feedback"></div>
         <div class="btn-row">
-          <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitCategorizationAnswer()" disabled>Submit Answer</button>
-          <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next Question →</button>
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitCategorizationAnswer()" disabled>Submit Answer</button>
+            <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next Question →</button>
+          </div>
         </div>
       </div>
     `;
@@ -838,6 +1010,10 @@ class CourseApp {
   renderSliderQuiz(section) {
     this.currentQuestionIndex = 0;
     this.quizAnswers[section.id] = [];
+
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
 
     return `
       <div class="step active">
@@ -860,8 +1036,11 @@ class CourseApp {
         </div>
         <div class="feedback" id="feedback"></div>
         <div class="btn-row">
-          <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit Rating</button>
-          <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next Question →</button>
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit Rating</button>
+            <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next Question →</button>
+          </div>
         </div>
       </div>
     `;
@@ -966,6 +1145,69 @@ class CourseApp {
     this.renderSliderQuestion(section);
   }
 
+  renderTextInput(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+        <div class="section-title">${section.title}</div>
+        <div class="section-instructions">${section.instructions}</div>
+        <div class="text-prompt">${section.prompt}</div>
+        <textarea class="text-input-area" placeholder="${section.placeholder}" id="text-input"></textarea>
+        <div class="btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.submitTextInput()">${section.button_text}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderLinksSubmission(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    const linksHTML = section.links.map(link =>
+      `<a href="${link.url}" class="link-item" target="_blank">${link.text}</a>`
+    ).join('');
+
+    return `
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+        <div class="section-title">${section.title}</div>
+        <div class="section-desc">${section.description}</div>
+        <div class="links-list">
+          ${linksHTML}
+        </div>
+        <div class="btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  submitTextInput() {
+    const input = document.getElementById('text-input').value;
+    // Store the text input answer
+    const section = this.config.course.sections[this.currentSectionIndex];
+    if (!this.quizAnswers[section.id]) {
+      this.quizAnswers[section.id] = [];
+    }
+    this.quizAnswers[section.id].push({
+      prompt: section.prompt,
+      answer: input
+    });
+    this.nextSection();
+  }
+
   renderSliderQuestion(section) {
     const question = section.questions[this.currentQuestionIndex];
     const total = section.questions.length;
@@ -1064,6 +1306,13 @@ class CourseApp {
       this.renderCurrentSection();
     } else {
       this.showCompletion();
+    }
+  }
+
+  previousSection() {
+    if (this.currentSectionIndex > 0) {
+      this.currentSectionIndex--;
+      this.renderCurrentSection();
     }
   }
 
