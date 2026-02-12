@@ -412,6 +412,44 @@
     margin-top: 16px;
   }
 
+  /* Timed Reading Screen */
+  .reading-container {
+    text-align: center;
+  }
+
+  .reading-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .timer-display {
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--blue);
+    margin: 20px 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timer-display.warning {
+    color: var(--red);
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .reading-instructions {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
@@ -455,7 +493,16 @@ const COURSE_CONFIG = {
         "description": "Watch the video above to learn about how messages are framed and why it matters in communication. When you're ready, continue to the first quiz.",
         "youtube_id": "3yzIYI2Ut0Y",
         "placeholder_text": "Part 1: Introduction Video",
-        "button_text": "Continue to Quiz →"
+        "button_text": "Continue →"
+      },
+      {
+        "type": "timed-reading",
+        "id": "reading-1",
+        "label": "Reading Exercise",
+        "title": "Compare Foreign Policy Statements",
+        "instructions": "Read and compare these two foreign policy statements",
+        "image_path": "images/foreign-policy-comparison.png",
+        "timer_seconds": 30
       },
       {
         "type": "quiz-categorization",
@@ -693,6 +740,9 @@ class CourseApp {
 
     if (section.type === 'video') {
       container.innerHTML = this.renderVideo(section);
+    } else if (section.type === 'timed-reading') {
+      container.innerHTML = this.renderTimedReading(section);
+      this.startTimer(section.timer_seconds);
     } else if (section.type === 'quiz-categorization') {
       container.innerHTML = this.renderCategorizationQuiz(section);
       this.setupCategorizationQuiz(section);
@@ -725,6 +775,43 @@ class CourseApp {
         </div>
       </div>
     `;
+  }
+
+  renderTimedReading(section) {
+    return `
+      <div class="step active">
+        <div class="reading-container">
+          <div class="section-label">${section.label}</div>
+          <div class="section-title">${section.title}</div>
+          <div class="reading-instructions">${section.instructions}</div>
+          <div class="timer-display" id="timer-display">${section.timer_seconds}</div>
+          <img src="${section.image_path}" alt="Reading material" class="reading-image">
+        </div>
+      </div>
+    `;
+  }
+
+  startTimer(seconds) {
+    let timeRemaining = seconds;
+    const timerDisplay = document.getElementById('timer-display');
+
+    const countdown = setInterval(() => {
+      timeRemaining--;
+      timerDisplay.textContent = timeRemaining;
+
+      // Add warning color when 10 seconds or less
+      if (timeRemaining <= 10) {
+        timerDisplay.classList.add('warning');
+      }
+
+      // Auto-advance when timer reaches 0
+      if (timeRemaining <= 0) {
+        clearInterval(countdown);
+        setTimeout(() => {
+          this.nextSection();
+        }, 500);
+      }
+    }, 1000);
   }
 
   renderCategorizationQuiz(section) {
