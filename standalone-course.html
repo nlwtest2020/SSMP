@@ -1073,7 +1073,6 @@ const COURSE_CONFIG = {
         "type": "links-submission",
         "id": "links-submission",
         "label": "Links & Submission",
-        "embed_url": "https://sites.google.com/view/tonebalancer/home",
         "button_text": "Continue →"
       },
       {
@@ -1440,14 +1439,57 @@ class CourseApp {
       ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
       : '';
 
+    const exchangeDayText = `#ExchangeDay is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.`;
+
     return `
-      <div class="step active" style="display:flex;flex-direction:column;padding:0;height:100%;">
-        <iframe
-          src="${section.embed_url}"
-          allowfullscreen
-          style="flex:1;width:100%;border:none;min-height:70vh;"
-        ></iframe>
-        <div class="btn-row" style="padding:16px 24px;margin:0;">
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+
+        <!-- 1. Tone Balancer link -->
+        <div style="margin-bottom:24px;">
+          <a href="https://chatgpt.com/g/g-68c1c8797f4c8191bf2c985aea077f7a-tone-balancer-2-0"
+             target="_blank"
+             style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;background:var(--blue);color:white;border-radius:10px;text-decoration:none;font-size:15px;font-weight:700;transition:background 0.2s ease;"
+             onmouseover="this.style.background='#154360'" onmouseout="this.style.background='var(--blue)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Link to the Tone Balancer
+          </a>
+        </div>
+
+        <!-- 2. Copy/paste text -->
+        <div style="margin-bottom:24px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">Text to Copy &amp; Share</div>
+          <div id="exchange-day-text" style="background:white;border:2px solid #d5cfc5;border-radius:10px;padding:16px 20px;font-size:15px;line-height:1.7;color:var(--dark);margin-bottom:10px;cursor:text;user-select:all;">
+            <strong>#ExchangeDay</strong> is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.
+          </div>
+          <button onclick="
+            navigator.clipboard.writeText(document.getElementById('exchange-day-text').innerText).then(() => {
+              this.textContent = '✓ Copied!';
+              this.style.background = 'var(--green)';
+              setTimeout(() => { this.textContent = 'Copy Text'; this.style.background = ''; }, 2000);
+            });
+          " style="padding:8px 20px;background:#e8f0f7;border:2px solid var(--blue);border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s ease;">
+            Copy Text
+          </button>
+        </div>
+
+        <!-- 3. Two Audiences image -->
+        <div style="margin-bottom:24px;">
+          <img src="images/two-audience.png" alt="Two Audiences" style="width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+
+        <!-- 4. MS Form -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:12px;">Submit Your Response</div>
+          <iframe width="100%" height="500px"
+            src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DwmHHIIIz0G5qBp8WUSC-ZmoJok0TJtKrrqdEyW0HRFUNEFJNFoxMFRCTEZZNVEwN09MN1MwTTNERC4u&embed=true"
+            frameborder="0" marginwidth="0" marginheight="0"
+            style="border:2px solid #d5cfc5;border-radius:10px;max-width:100%;"
+            allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="btn-row">
           ${backButton}
           <div class="btn-group-right">
             <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
