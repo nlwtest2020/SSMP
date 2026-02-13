@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Learning Course</title>
+<title>SSMP Training</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -244,6 +244,18 @@
     cursor: pointer;
   }
 
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 28px;
@@ -367,9 +379,91 @@
 
   .btn-row {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
+  }
+
+  .btn-back {
+    background: #888;
+    color: white;
+  }
+
+  .btn-back:hover {
+    background: #666;
+    transform: translateY(-1px);
+  }
+
+  .btn-group-right {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Text input practice */
+  .text-prompt {
+    background: #f8f6f3;
+    padding: 16px 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--blue);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--dark);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .text-input-area {
+    width: 100%;
+    min-height: 120px;
+    padding: 16px;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+  }
+
+  .text-input-area:focus {
+    outline: none;
+    border-color: var(--blue);
+  }
+
+  /* Links and submission */
+  .embed-frame {
+    width: 100%;
+    height: 500px;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    margin: 20px 0;
+    background: #f5f5f5;
+  }
+
+  .links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .link-item {
+    display: block;
+    padding: 14px 20px;
+    background: white;
+    border: 2px solid #d5cfc5;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .link-item:hover {
+    border-color: var(--blue);
+    background: #f0edea;
+    transform: translateX(4px);
   }
 
   /* Completion screen */
@@ -412,9 +506,264 @@
     margin-top: 16px;
   }
 
+  /* Timed Reading Screen */
+  .reading-container {
+    text-align: center;
+  }
+
+  .reading-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .timer-display {
+    font-size: 72px;
+    font-weight: 800;
+    color: var(--blue);
+    margin: 20px 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .timer-display.warning {
+    color: var(--red);
+    animation: pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  .reading-instructions {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Dark quiz (SSMP categorization) */
+  .dq-container {
+    background: linear-gradient(160deg, #0d1b2a 0%, #1a3a5c 100%);
+    border-radius: 12px;
+    margin: -24px;
+    padding: 32px 28px 24px;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .dq-counter {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 28px;
+  }
+
+  .dq-statement {
+    font-size: 21px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.45;
+    flex: 1;
+    margin-bottom: 32px;
+  }
+
+  .dq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .dq-option {
+    width: 100%;
+    padding: 15px 28px;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  .dq-option:hover:not(:disabled) {
+    background: rgba(255,255,255,0.18);
+    border-color: rgba(255,255,255,0.5);
+    transform: translateY(-1px);
+  }
+
+  .dq-option.selected {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+  }
+
+  .dq-option.correct {
+    background: rgba(39,134,74,0.35);
+    border-color: #4caf77;
+  }
+
+  .dq-option.incorrect {
+    background: rgba(192,57,43,0.35);
+    border-color: #e57373;
+  }
+
+  .dq-option:disabled { cursor: default; }
+
+  .dq-feedback {
+    display: none;
+    padding: 20px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.10);
+    border-left: 4px solid rgba(255,255,255,0.3);
+    margin-bottom: 16px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .dq-feedback.show { display: block; }
+  .dq-feedback.correct { border-left-color: #4caf77; }
+  .dq-feedback.incorrect { border-left-color: #e57373; }
+
+  .dq-btn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .dq-score-screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    gap: 8px;
+  }
+
+  .dq-score-pct {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 1;
+    color: white;
+  }
+
+  .dq-score-detail {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .dq-score-msg {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 8px;
+  }
+
+  /* Clean slider (redesign) */
+  .cs-step {
+    padding: 8px 0;
+  }
+
+  .cs-statement {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 36px;
+  }
+
+  .cs-score-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #aaa;
+    margin-bottom: 10px;
+  }
+
+  .cs-track-outer {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .cs-numbers-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+    pointer-events: none;
+  }
+
+  .cs-track-area {
+    position: relative;
+    padding: 8px 0 44px;
+  }
+
+  .cs-track-area input[type="range"] {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cs-correct-zone {
+    position: absolute;
+    top: 4px;
+    height: 16px;
+    background: rgba(39, 134, 74, 0.2);
+    border: 2px solid rgba(39, 134, 74, 0.55);
+    border-radius: 4px;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cs-correct-zone.show { display: block; }
+
+  .cs-value-pill {
+    position: absolute;
+    bottom: 0;
+    background: var(--green);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: left 0.05s linear;
+  }
+
+  .cs-endpoints {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
   }
 
   /* Responsive */
@@ -441,7 +790,905 @@
   </div>
 </div>
 
-<script src="app.js"></script>
+<script>
+// Course Configuration Data
+const COURSE_CONFIG = {
+  "course": {
+    "title": "Interactive Learning Course",
+    "sections": [
+      {
+        "type": "video",
+        "id": "video-1",
+        "label": "Video 1",
+        "title": "Introduction to Message Framing",
+        "description": "Watch the video above to learn about how messages are framed and why it matters in communication. When you're ready, continue to the first quiz.",
+        "youtube_id": "OmA8pkKfLts",
+        "placeholder_text": "Intro Video",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "timed-reading",
+        "id": "reading-1",
+        "label": "Reading Exercise",
+        "title": "Compare Foreign Policy Statements",
+        "instructions": "Read and compare these two foreign policy statements carefully",
+        "image_path": "images/foreign-policy-comparison.png",
+        "timer_seconds": 30
+      },
+      {
+        "type": "video",
+        "id": "video-2",
+        "label": "Video 2",
+        "title": "Understanding the Framework",
+        "description": "This video introduces the SSMP framework and explains how to categorize messaging.",
+        "youtube_id": "9sUx90kbTrM",
+        "placeholder_text": "Video 2",
+        "button_text": "Continue to Quiz →"
+      },
+      {
+        "type": "quiz-categorization",
+        "id": "ssmp-quiz",
+        "label": "SSMP Quiz",
+        "title": "Safer, Stronger, More Prosperous",
+        "instructions": "Read each statement about U.S. exchange programs and decide: does this make America Safer, Stronger, or More Prosperous?",
+        "options": ["Safer", "Stronger", "More Prosperous"],
+        "option_emojis": {"Safer": "🛡️", "Stronger": "💪", "More Prosperous": "💰"},
+        "questions": [
+          {
+            "id": 1,
+            "statement": "89% of countries in our workforce exchanges now prefer American tech and training, setting the U.S. as the global standard.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "That's right! When other countries adopt American standards and prefer U.S. approaches, it reinforces America's global leadership and influence. The key phrase here is 'setting the U.S. as the global standard' — that's about positioning and strength on the world stage.",
+              "Safer": "Not quite. While global influence can indirectly support security, this statement is really about America's leadership position — other countries choosing U.S. tech and training as the standard. That's about influence and strength, not safety. The correct answer is Stronger.",
+              "More Prosperous": "Close, but not quite. Tech and training adoption could eventually create economic benefits, but the emphasis here is on the U.S. being seen as the global standard — that's about leadership and influence, not direct economic returns. The correct answer is Stronger."
+            }
+          },
+          {
+            "id": 2,
+            "statement": "Entrepreneurship exchanges created $2.8B in partnerships and 45K U.S. jobs through global entrepreneur collaboration.",
+            "correct": "More Prosperous",
+            "feedback": {
+              "More Prosperous": "Exactly! The dollar signs are a strong signal here. $2.8 billion in partnerships and 45,000 U.S. jobs are direct economic outcomes. Whenever you see revenue, jobs, or investment figures, think More Prosperous.",
+              "Safer": "Not this one. There's no security or stability angle in this statement — it's all about money and jobs. $2.8B in partnerships and 45K jobs are economic indicators, which map to More Prosperous.",
+              "Stronger": "Good instinct — collaboration does strengthen relationships. But the statement leads with $2.8B and 45K jobs, which are concrete economic outcomes. When the headline numbers are dollars and jobs, that's More Prosperous."
+            }
+          },
+          {
+            "id": 3,
+            "statement": "Fellows enhance transatlantic ties through partnerships between European and American business leaders.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "Correct! 'Enhancing transatlantic ties' and building partnerships between leaders is about deepening alliances and strengthening America's global relationships. That's the core of what Stronger means in this framework.",
+              "Safer": "Transatlantic ties do contribute to a more stable world, but this statement is focused on relationship-building between business leaders — that's about alliance strength and influence, not security. The correct answer is Stronger.",
+              "More Prosperous": "Business leaders are involved, so the economic angle is tempting. But the statement emphasizes 'ties' and 'partnerships' as relationship outcomes, not financial ones. No dollar figures, no jobs — this is about strengthening alliances. The correct answer is Stronger."
+            }
+          },
+          {
+            "id": 4,
+            "statement": "Educational exchanges built pro-democracy networks in 47 nations, fostering civic resilience and reducing the appeal of violent extremism.",
+            "correct": "Safer",
+            "feedback": {
+              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to global stability, which directly makes America safer.",
+              "Stronger": "Pro-democracy networks do strengthen institutions, but the clincher here is 'reducing the appeal of violent extremism.' That's explicitly about security and safety. When you see language about countering threats or extremism, think Safer.",
+              "More Prosperous": "This one has no economic indicators at all — no dollars, jobs, or trade. It's focused on democracy, civic resilience, and countering extremism, all of which are security outcomes. The correct answer is Safer."
+            }
+          },
+          {
+            "id": 5,
+            "statement": "Eastern Europe programs stabilized 12 regions via education and training, reducing migration pressures on U.S. borders.",
+            "correct": "Safer",
+            "feedback": {
+              "Safer": "Right! Two safety signals here: 'stabilized regions' and 'reducing migration pressures on U.S. borders.' Both are about security and stability — stabilization abroad reduces risks at home.",
+              "Stronger": "Stabilization might feel like making America 'stronger,' but look at the second half: 'reducing migration pressures on U.S. borders.' That's a direct homeland security framing. Regional stability plus border security equals Safer.",
+              "More Prosperous": "Education and training can have economic benefits, but this statement doesn't mention any. It's focused on stabilizing regions and reducing border pressures — both security outcomes. The correct answer is Safer."
+            }
+          },
+          {
+            "id": 6,
+            "statement": "Foreign study programs earned U.S. universities $780M and international students founded 3,200 U.S.-based companies.",
+            "correct": "More Prosperous",
+            "feedback": {
+              "More Prosperous": "Nailed it! $780M in revenue and 3,200 new companies are textbook economic outcomes. This is as clear-cut as More Prosperous gets — direct financial returns flowing back to the U.S.",
+              "Safer": "There's nothing in this statement related to security or stability. It's all about money coming into universities and companies being created. Both are economic outcomes, so the correct answer is More Prosperous.",
+              "Stronger": "International education does build soft power and influence, but this statement is quantifying the financial return — $780M and 3,200 companies. When the data points are economic, go with More Prosperous."
+            }
+          },
+          {
+            "id": 7,
+            "statement": "78% of firms from our professional exchanges now adopt U.S. business and regulatory standards as their industry model.",
+            "correct": "Stronger",
+            "feedback": {
+              "Stronger": "Exactly right! When foreign firms adopt American standards as their model, that's U.S. influence expanding globally. Standard-setting is one of the clearest forms of global strength and leadership.",
+              "Safer": "Regulatory standards might sound like they relate to safety, but this is about U.S. business practices being adopted as the global model. That's influence and leadership, not security. The correct answer is Stronger.",
+              "More Prosperous": "Adopting U.S. business standards could eventually make trade easier, but the statement emphasizes the adoption itself — 78% of firms looking to America as the model. That's about influence and standard-setting, which is Stronger."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-3-tone",
+        "label": "Video 3",
+        "title": "Introduction to Tone",
+        "description": "Learn about tone in messaging and how to recognize different tonal approaches.",
+        "youtube_id": "zoeNtcZz-_0",
+        "placeholder_text": "Video 3 - Tone Intro",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "quiz-slider",
+        "id": "tone-practice-1",
+        "label": "Tone Practice 1",
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "Through exchange programs, students gain lifelong friendships, discover new cultures, and grow into more confident, curious global learners ready to make a difference.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Exactly — 'lifelong friendships,' 'discover new cultures,' and 'ready to make a difference' are all personal and experiential. No strategy, no national interest. This sits right at the low end of the scale.",
+              "mid": "This is actually non-framed. The language stays entirely personal — friendships, cultures, personal growth. There's no policy vocabulary or hint of what the U.S. gains. 'Make a difference' sounds purposeful but stays at the human level.",
+              "framed": "Not quite — there's no strategic language here at all. It's about personal growth and friendships, not national interest. The correct answer is non-framed (0–20)."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-4-tone",
+        "label": "Video 4",
+        "title": "Advanced Tone Techniques",
+        "description": "Explore more sophisticated approaches to tone and framing.",
+        "youtube_id": "y4c3n0MyoHg",
+        "placeholder_text": "Video 4 - Advanced Tone",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "quiz-slider",
+        "id": "tone-practice-2",
+        "label": "Tone Practice 2",
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "American Councils advances U.S. national security by forging trusted international partnerships, equipping Americans with critical language skills, and strengthening U.S. influence abroad to counter adversarial threats.",
+            "correct_tier": "framed",
+            "feedback": {
+              "non_framed": "This is actually heavily framed. 'U.S. national security,' 'counter adversarial threats,' and 'strengthen U.S. influence' are all high-stakes strategic language. Every phrase positions exchange as a national security instrument — there's nothing personal or experiential here.",
+              "mid": "This actually lands in the framed tier. 'U.S. national security,' 'adversarial threats,' and 'strengthen U.S. influence abroad' are about as direct as America-first language gets. Mid-tier statements balance strategy with cooperation — this one is squarely about what the U.S. gains.",
+              "framed": "Spot on — this is in the framed tier. 'National security,' 'counter adversarial threats,' 'strengthen U.S. influence' pack every clause with strategic intent. Exchange programs are explicitly framed here as instruments of American power and defense."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-5-tone",
+        "label": "Video 5",
+        "title": "Evaluating Tone",
+        "description": "Learn how to evaluate and assess the effectiveness of different tones.",
+        "youtube_id": "t47TxYslS2E",
+        "placeholder_text": "Video 5 - Evaluating Tone",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "quiz-slider",
+        "id": "tone-multiple-choice",
+        "label": "Tone Multiple Choice",
+        "title": "Tone Slider: How Framed Is This Message?",
+        "instructions": "Read each statement and rate how 'framed' it is on a scale from 0 (completely non-framed, neutral) to 100 (heavily framed, strategic America-first messaging). Drag the slider to where you think it falls.",
+        "scale_labels": {
+          "low": "Non-Framed",
+          "high": "Framed"
+        },
+        "hint": "0 = purely neutral, 100 = heavily framed",
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "Through exchange, participants develop leadership and understanding—building trust, innovation, and opportunity between the U.S. and global partners.",
+            "correct_tier": "mid",
+            "feedback": {
+              "non_framed": "This one's actually mid-tier. It reads softly, but words like 'leadership,' 'innovation,' and 'opportunity' are doing quiet strategic work — they frame exchange as purposeful, not just a personal experience. And 'global partners' positions the U.S. as a player on the world stage. It's subtle, but it's there.",
+              "mid": "Good call — this sits in the middle. It's not pushing an America-first angle, but 'leadership,' 'innovation,' and 'opportunity' nudge it above purely neutral. 'Global partners' also adds a diplomatic tone that you wouldn't find in unframed personal storytelling.",
+              "framed": "This one's actually mid-tier, not heavily framed. While 'leadership' and 'innovation' have a strategic flavor, the tone stays collaborative — 'trust,' 'understanding,' 'between the U.S. and global partners.' Compare it to statements that say 'defend U.S. interests' or 'national resilience' — that's what heavy framing sounds like."
+            }
+          },
+          {
+            "id": 2,
+            "statement": "Exchange changes lives—students discover new cultures, make lifelong friends, and return home inspired to make a difference in their communities.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Exactly right — this is textbook non-framed. 'New cultures,' 'lifelong friends,' 'inspired to make a difference' — it's pure personal experience. No strategy, no national interest, no policy language. This is what exchange messaging sounds like before any framing is applied.",
+              "mid": "This one's actually non-framed. 'Inspired to make a difference' might sound purposeful, but the whole statement stays at the personal level — cultures, friends, communities. There's no hint of U.S. interests, competitiveness, or strategic goals. That's what keeps it at the bottom of the scale.",
+              "framed": "This is about as unframed as it gets. There's no strategic language anywhere — 'new cultures,' 'lifelong friends,' 'make a difference in their communities' is entirely personal storytelling. When you see language like this with no mention of national interests or policy outcomes, that's your signal it's non-framed."
+            }
+          },
+          {
+            "id": 3,
+            "statement": "Our programs connect leaders, educators, and innovators across borders, strengthening cooperation and expanding shared prosperity and progress.",
+            "correct_tier": "mid",
+            "feedback": {
+              "non_framed": "This one lands mid-tier. It feels balanced because of words like 'shared' and 'cooperation,' but 'leaders, educators, and innovators' elevates the audience beyond personal stories, and 'prosperity and progress' are policy-level words. It's making a case — just a collaborative one.",
+              "mid": "Good read — this is solidly mid-tier. 'Shared prosperity and progress' introduces a policy angle, and 'leaders, educators, and innovators' elevates the tone. But 'cooperation' and 'shared' keep it framed as mutual benefit rather than American advantage. That balance is what makes it mid-tier.",
+              "framed": "This one's actually mid-tier. 'Prosperity and progress' sound strategic, but notice 'shared' and 'cooperation' — the message consistently frames exchange as two-way, not America-first. Compare it to statements that name 'U.S. security' or 'national resilience' directly and you'll see the difference."
+            }
+          },
+          {
+            "id": 4,
+            "statement": "Investing in language and leadership exchanges builds a competitive workforce ready to defend U.S. interests and promote national resilience worldwide.",
+            "correct_tier": "framed",
+            "feedback": {
+              "non_framed": "This one is heavily framed. Look at what's packed in here: 'competitive workforce' treats people as strategic assets, 'defend U.S. interests' is explicitly America-first, and 'national resilience' is security language. Even the opening word 'investing' frames exchange as a return on investment for the U.S., not a mutual benefit.",
+              "mid": "This actually lands in the framed tier. 'Competitive workforce' and 'national resilience' are doing heavy lifting, and 'defend U.S. interests' is about as direct as America-first language gets. Mid-tier statements talk about cooperation and shared benefit — this one is squarely about what the U.S. gets out of it.",
+              "framed": "Spot on — this is clearly in the framed tier. 'Competitive workforce,' 'defend U.S. interests,' 'national resilience' — every major phrase positions exchange as a tool for American strategic advantage. The word 'investing' at the start seals it, framing the whole thing as an ROI argument for the U.S."
+            }
+          },
+          {
+            "id": 5,
+            "statement": "From new foods to first snowfalls, every exchange story reminds us how shared experiences build empathy, curiosity, and lasting friendships.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Perfect — this is the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'curiosity,' 'lasting friendships' — it's entirely personal and experiential. There's zero strategic content. This is what purely non-framed exchange messaging looks like.",
+              "mid": "This one's actually non-framed. 'New foods,' 'first snowfalls,' and 'lasting friendships' are as personal and apolitical as it gets. There's no policy vocabulary, no national interest angle, nothing about what the U.S. gains. When the imagery is this concrete and human, you're at the bottom of the scale.",
+              "framed": "This is actually the least framed statement in the set. 'New foods,' 'first snowfalls,' 'empathy,' 'friendships' — there's no strategic content at all. Compare the vocabulary here to statements about 'U.S. security' or 'competitive workforce' and you can see the full distance between non-framed and framed."
+            }
+          },
+          {
+            "id": 6,
+            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and global stability.",
+            "correct_tier": "framed",
+            "feedback": {
+              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'global stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
+              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'global stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
+              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and global stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
+            }
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "id": "video-6-final",
+        "label": "Video 6",
+        "title": "Final Practice Session",
+        "description": "Watch this final practice session to see all concepts in action.",
+        "youtube_id": "_rkMtwy4_mw",
+        "placeholder_text": "Video 6 - Final Practice",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "links-submission",
+        "id": "links-submission",
+        "label": "Links & Submission",
+        "button_text": "Continue →"
+      },
+      {
+        "type": "video",
+        "id": "video-7-wrap",
+        "label": "Video 7",
+        "title": "Wrap Up and Goodbye",
+        "description": "Great work getting through the course. Watch this final video for key takeaways and how to apply what you've learned.",
+        "youtube_id": "JeBH-Dmq23w",
+        "placeholder_text": "Video 7 - Wrap Up",
+        "button_text": "Finish Course ✓"
+      }
+    ],
+    "completion": {
+      "icon": "🎓",
+      "title": "Course Complete!",
+      "description": "Congratulations on completing the SSMP Workshop on framing your messages. You can now identify SSMP language and use strategic tone to appeal to different audiences."
+    }
+  }
+};
+
+// Interactive Learning Course App
+class CourseApp {
+  constructor() {
+    this.config = COURSE_CONFIG;
+    this.currentSectionIndex = 0;
+    this.currentQuestionIndex = 0;
+    this.quizAnswers = {};
+    this.init();
+  }
+
+  init() {
+    this.buildProgressBar();
+    this.renderCurrentSection();
+  }
+
+  buildProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    progressBar.innerHTML = '';
+
+    this.config.course.sections.forEach((_, index) => {
+      const step = document.createElement('div');
+      step.className = 'progress-step';
+      step.id = `progress-${index}`;
+      progressBar.appendChild(step);
+    });
+
+    this.updateProgress();
+  }
+
+  updateProgress() {
+    this.config.course.sections.forEach((_, index) => {
+      const step = document.getElementById(`progress-${index}`);
+      step.classList.remove('active', 'completed');
+
+      if (index < this.currentSectionIndex) {
+        step.classList.add('completed');
+      } else if (index === this.currentSectionIndex) {
+        step.classList.add('active');
+      }
+    });
+  }
+
+  renderCurrentSection() {
+    const section = this.config.course.sections[this.currentSectionIndex];
+    const container = document.getElementById('course-content');
+
+    if (section.type === 'video') {
+      container.innerHTML = this.renderVideo(section);
+    } else if (section.type === 'timed-reading') {
+      container.innerHTML = this.renderTimedReading(section);
+    } else if (section.type === 'quiz-categorization') {
+      container.innerHTML = this.renderCategorizationQuiz(section);
+      this.setupCategorizationQuiz(section);
+    } else if (section.type === 'quiz-slider') {
+      container.innerHTML = this.renderSliderQuiz(section);
+      this.setupSliderQuiz(section);
+    } else if (section.type === 'text-input') {
+      container.innerHTML = this.renderTextInput(section);
+    } else if (section.type === 'links-submission') {
+      container.innerHTML = this.renderLinksSubmission(section);
+    }
+
+    this.updateProgress();
+  }
+
+  renderVideo(section) {
+    const videoContent = section.youtube_id
+      ? `<iframe src="https://www.youtube.com/embed/${section.youtube_id}" allowfullscreen></iframe>`
+      : `<div class="video-placeholder">
+           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+           <span>${section.placeholder_text}</span>
+         </div>`;
+
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active">
+        <div class="video-container">
+          ${videoContent}
+        </div>
+        <div class="btn-row">
+          ${backButton || '<div></div>'}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderTimedReading(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active">
+        <div class="reading-container">
+          <div class="section-label">${section.label}</div>
+          <div class="section-title">${section.title}</div>
+          <div class="reading-instructions">${section.instructions}</div>
+          <img src="${section.image_path}" alt="Reading material" class="reading-image">
+        </div>
+        <div class="btn-row" style="margin-top: 20px;">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">Continue →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  startTimer(seconds) {
+    let timeRemaining = seconds;
+    const timerDisplay = document.getElementById('timer-display');
+
+    const countdown = setInterval(() => {
+      timeRemaining--;
+      timerDisplay.textContent = timeRemaining;
+
+      // Add warning color when 10 seconds or less
+      if (timeRemaining <= 10) {
+        timerDisplay.classList.add('warning');
+      }
+
+      // Auto-advance when timer reaches 0
+      if (timeRemaining <= 0) {
+        clearInterval(countdown);
+        setTimeout(() => {
+          this.nextSection();
+        }, 500);
+      }
+    }, 1000);
+  }
+
+  renderCategorizationQuiz(section) {
+    this.currentQuestionIndex = 0;
+    this.quizAnswers[section.id] = [];
+
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active dq-container">
+        <div id="quiz-counter" class="dq-counter"></div>
+        <div id="quiz-question" class="dq-statement"></div>
+        <div>
+          <div id="mc-options" class="dq-options"></div>
+          <div id="feedback" class="dq-feedback"></div>
+          <div class="dq-btn-row">
+            ${backButton}
+            <div class="btn-group-right">
+              <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderSliderQuiz(section) {
+    this.currentQuestionIndex = 0;
+    this.quizAnswers[section.id] = [];
+
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active cs-step">
+        <div id="cs-statement" class="cs-statement"></div>
+        <div class="cs-score-label">Score</div>
+        <div class="cs-track-outer">
+          <div class="cs-numbers-row">
+            <span>0</span><span>50</span><span>100</span>
+          </div>
+          <div class="cs-track-area" id="cs-track-area">
+            <div class="cs-correct-zone" id="correct-zone"></div>
+            <input type="range" min="0" max="100" value="50" id="slider"
+              oninput="courseApp.updateSliderValue(this.value)">
+            <div class="cs-value-pill" id="value-pill" style="left:50%">50</div>
+          </div>
+          <div class="cs-endpoints">
+            <span>Non-Framed</span><span>Framed</span>
+          </div>
+        </div>
+        <div class="feedback" id="feedback"></div>
+        <div class="btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit</button>
+            <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  setupCategorizationQuiz(section) {
+    this.renderCategorizationQuestion(section);
+  }
+
+  renderCategorizationQuestion(section) {
+    const question = section.questions[this.currentQuestionIndex];
+    const total = section.questions.length;
+
+    document.getElementById('quiz-counter').textContent = `Question ${this.currentQuestionIndex + 1} of ${total}`;
+    document.getElementById('quiz-question').textContent = question.statement;
+
+    const optionsContainer = document.getElementById('mc-options');
+    optionsContainer.innerHTML = '';
+
+    const emojis = section.option_emojis || {};
+    section.options.forEach(option => {
+      const button = document.createElement('button');
+      button.className = 'dq-option';
+      button.textContent = (emojis[option] ? emojis[option] + '  ' : '') + option.toUpperCase();
+      button.dataset.answer = option;
+      button.onclick = () => this.selectCategorizationAnswer(option);
+      optionsContainer.appendChild(button);
+    });
+
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('feedback').className = 'dq-feedback';
+  }
+
+  selectCategorizationAnswer(answer) {
+    const buttons = document.querySelectorAll('.dq-option');
+    buttons.forEach(btn => btn.classList.remove('selected'));
+
+    const selectedButton = Array.from(buttons).find(btn => btn.dataset.answer === answer);
+    selectedButton.classList.add('selected');
+
+    this.selectedAnswer = answer;
+    this.submitCategorizationAnswer();
+  }
+
+  submitCategorizationAnswer() {
+    const section = this.config.course.sections[this.currentSectionIndex];
+    const question = section.questions[this.currentQuestionIndex];
+    const isCorrect = this.selectedAnswer === question.correct;
+
+    this.quizAnswers[section.id].push({
+      questionId: question.id,
+      selected: this.selectedAnswer,
+      correct: question.correct,
+      isCorrect: isCorrect
+    });
+
+    const buttons = document.querySelectorAll('.dq-option');
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      if (btn.dataset.answer === question.correct) {
+        btn.classList.add('correct');
+      } else if (btn.dataset.answer === this.selectedAnswer && !isCorrect) {
+        btn.classList.add('incorrect');
+      }
+    });
+
+    const feedback = document.getElementById('feedback');
+    const feedbackText = question.feedback[this.selectedAnswer];
+
+    feedback.className = 'dq-feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+    feedback.innerHTML = feedbackText;
+
+    const isLast = this.currentQuestionIndex >= section.questions.length - 1;
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.textContent = isLast ? 'See Results →' : 'Next →';
+    nextBtn.style.display = 'inline-block';
+  }
+
+  nextCategorizationQuestion() {
+    const section = this.config.course.sections[this.currentSectionIndex];
+
+    if (this.currentQuestionIndex < section.questions.length - 1) {
+      this.currentQuestionIndex++;
+      this.renderCategorizationQuestion(section);
+    } else {
+      this.showCategorizationScore(section);
+    }
+  }
+
+  showCategorizationScore(section) {
+    const answers = this.quizAnswers[section.id];
+    const correct = answers.filter(a => a.isCorrect).length;
+    const total = answers.length;
+    const pct = Math.round((correct / total) * 100);
+    const msg = pct === 100 ? 'Perfect score!' : pct >= 70 ? 'Nice work!' : 'Keep practicing!';
+
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    document.getElementById('course-content').innerHTML = `
+      <div class="step active dq-container">
+        <div class="dq-score-screen">
+          <div class="dq-score-pct">${pct}%</div>
+          <div class="dq-score-detail">${correct} of ${total} correct</div>
+          <div class="dq-score-msg">${msg}</div>
+        </div>
+        <div class="dq-btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">Continue →</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  setupSliderQuiz(section) {
+    this.renderSliderQuestion(section);
+  }
+
+  renderTextInput(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    return `
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+        <div class="section-title">${section.title}</div>
+        <div class="section-instructions">${section.instructions}</div>
+        <div class="text-prompt">${section.prompt}</div>
+        <textarea class="text-input-area" placeholder="${section.placeholder}" id="text-input"></textarea>
+        <div class="btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.submitTextInput()">${section.button_text}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  renderLinksSubmission(section) {
+    const backButton = this.currentSectionIndex > 0
+      ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
+      : '';
+
+    const exchangeDayText = `#ExchangeDay is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.`;
+
+    return `
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+
+        <!-- 1. Tone Balancer link -->
+        <div style="margin-bottom:24px;">
+          <a href="https://chatgpt.com/g/g-68c1c8797f4c8191bf2c985aea077f7a-tone-balancer-2-0"
+             target="_blank"
+             style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;background:var(--blue);color:white;border-radius:10px;text-decoration:none;font-size:15px;font-weight:700;transition:background 0.2s ease;"
+             onmouseover="this.style.background='#154360'" onmouseout="this.style.background='var(--blue)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Link to the Tone Balancer
+          </a>
+        </div>
+
+        <!-- 2. Copy/paste text -->
+        <div style="margin-bottom:24px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">Text to Copy &amp; Share</div>
+          <div id="exchange-day-text" style="background:white;border:2px solid #d5cfc5;border-radius:10px;padding:16px 20px;font-size:15px;line-height:1.7;color:var(--dark);margin-bottom:10px;cursor:text;user-select:all;">
+            <strong>#ExchangeDay</strong> is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.
+          </div>
+          <button onclick="
+            navigator.clipboard.writeText(document.getElementById('exchange-day-text').innerText).then(() => {
+              this.textContent = '✓ Copied!';
+              this.style.background = 'var(--green)';
+              setTimeout(() => { this.textContent = 'Copy Text'; this.style.background = ''; }, 2000);
+            });
+          " style="padding:8px 20px;background:#e8f0f7;border:2px solid var(--blue);border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s ease;">
+            Copy Text
+          </button>
+        </div>
+
+        <!-- 3. Two Audiences image -->
+        <div style="margin-bottom:24px;">
+          <img src="images/two-audience.png" alt="Two Audiences" style="width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+
+        <!-- 4. MS Form -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:12px;">Submit Your Response</div>
+          <iframe width="100%" height="500px"
+            src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DwmHHIIIz0G5qBp8WUSC-ZmoJok0TJtKrrqdEyW0HRFUNEFJNFoxMFRCTEZZNVEwN09MN1MwTTNERC4u&embed=true"
+            frameborder="0" marginwidth="0" marginheight="0"
+            style="border:2px solid #d5cfc5;border-radius:10px;max-width:100%;"
+            allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="btn-row">
+          ${backButton}
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  submitTextInput() {
+    const input = document.getElementById('text-input').value;
+    // Store the text input answer
+    const section = this.config.course.sections[this.currentSectionIndex];
+    if (!this.quizAnswers[section.id]) {
+      this.quizAnswers[section.id] = [];
+    }
+    this.quizAnswers[section.id].push({
+      prompt: section.prompt,
+      answer: input
+    });
+    this.nextSection();
+  }
+
+  renderSliderQuestion(section) {
+    const question = section.questions[this.currentQuestionIndex];
+
+    document.getElementById('cs-statement').textContent = question.statement;
+
+    const slider = document.getElementById('slider');
+    slider.value = 50;
+    slider.disabled = false;
+
+    const pill = document.getElementById('value-pill');
+    pill.textContent = '50';
+    pill.style.left = '50%';
+    pill.style.background = '';
+
+    const zone = document.getElementById('correct-zone');
+    zone.className = 'cs-correct-zone';
+
+    document.getElementById('submit-btn').style.display = 'inline-block';
+    document.getElementById('next-btn').style.display = 'none';
+    document.getElementById('feedback').className = 'feedback';
+  }
+
+  updateSliderValue(value) {
+    const pill = document.getElementById('value-pill');
+    pill.textContent = value;
+    // Correct for thumb width (28px) so pill tracks the thumb center
+    const pct = value / 100;
+    pill.style.left = `calc(${value}% + ${(0.5 - pct) * 28}px)`;
+  }
+
+  getTierFromValue(value, tiers) {
+    if (value >= tiers.non_framed.min && value < tiers.non_framed.max) {
+      return 'non_framed';
+    } else if (value >= tiers.mid.min && value < tiers.mid.max) {
+      return 'mid';
+    } else {
+      return 'framed';
+    }
+  }
+
+  submitSliderAnswer() {
+    const section = this.config.course.sections[this.currentSectionIndex];
+    const question = section.questions[this.currentQuestionIndex];
+    const sliderValue = parseInt(document.getElementById('slider').value);
+    const userTier = this.getTierFromValue(sliderValue, section.tiers);
+    const isCorrect = userTier === question.correct_tier;
+
+    this.quizAnswers[section.id].push({
+      questionId: question.id,
+      value: sliderValue,
+      tier: userTier,
+      correctTier: question.correct_tier,
+      isCorrect: isCorrect
+    });
+
+    document.getElementById('slider').disabled = true;
+
+    // Show green correct-zone on the track
+    const tierData = section.tiers[question.correct_tier];
+    const zone = document.getElementById('correct-zone');
+    zone.style.left = tierData.min + '%';
+    zone.style.width = (tierData.max - tierData.min) + '%';
+    zone.className = 'cs-correct-zone show';
+
+    // Color the value pill
+    const pill = document.getElementById('value-pill');
+    pill.style.background = isCorrect ? 'var(--green)' : 'var(--red)';
+
+    const feedback = document.getElementById('feedback');
+    const feedbackText = question.feedback[userTier];
+    feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'neutral');
+    feedback.innerHTML = feedbackText;
+
+    document.getElementById('submit-btn').style.display = 'none';
+
+    const isLast = this.currentQuestionIndex >= section.questions.length - 1;
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.textContent = isLast ? this.getNextButtonText() : 'Next →';
+    nextBtn.style.display = 'inline-block';
+  }
+
+  nextSliderQuestion() {
+    const section = this.config.course.sections[this.currentSectionIndex];
+
+    if (this.currentQuestionIndex < section.questions.length - 1) {
+      this.currentQuestionIndex++;
+      this.renderSliderQuestion(section);
+    } else {
+      this.nextSection();
+    }
+  }
+
+  getNextButtonText() {
+    const nextSection = this.config.course.sections[this.currentSectionIndex + 1];
+    if (!nextSection) {
+      return 'Continue →';
+    }
+
+    if (nextSection.type === 'video') {
+      return `Continue to ${nextSection.label} →`;
+    }
+    return 'Continue →';
+  }
+
+  nextSection() {
+    if (this.currentSectionIndex < this.config.course.sections.length - 1) {
+      this.currentSectionIndex++;
+      this.renderCurrentSection();
+    } else {
+      this.showCompletion();
+    }
+  }
+
+  previousSection() {
+    if (this.currentSectionIndex > 0) {
+      this.currentSectionIndex--;
+      this.renderCurrentSection();
+    }
+  }
+
+  showCompletion() {
+    const container = document.getElementById('course-content');
+    container.innerHTML = '';
+
+    const completion = document.getElementById('completion');
+    const config = this.config.course.completion;
+
+    const score = this.calculateScore();
+
+    completion.innerHTML = `
+      <div class="completion-icon">${config.icon}</div>
+      <h2>${config.title}</h2>
+      <p>${config.description}</p>
+      <div class="score-badge">${score.text}</div>
+    `;
+
+    completion.classList.add('show');
+
+    // Mark all progress as completed
+    this.config.course.sections.forEach((_, index) => {
+      const step = document.getElementById(`progress-${index}`);
+      step.classList.remove('active');
+      step.classList.add('completed');
+    });
+  }
+
+  calculateScore() {
+    let totalCorrect = 0;
+    let totalQuestions = 0;
+
+    Object.keys(this.quizAnswers).forEach(quizId => {
+      const answers = this.quizAnswers[quizId];
+      answers.forEach(answer => {
+        totalQuestions++;
+        if (answer.isCorrect) {
+          totalCorrect++;
+        }
+      });
+    });
+
+    const percentage = Math.round((totalCorrect / totalQuestions) * 100);
+    return {
+      correct: totalCorrect,
+      total: totalQuestions,
+      percentage: percentage,
+      text: `Score: ${totalCorrect}/${totalQuestions} questions answered correctly (${percentage}%)`
+    };
+  }
+}
+
+// Initialize the app when DOM is ready
+let courseApp;
+document.addEventListener('DOMContentLoaded', () => {
+  courseApp = new CourseApp();
+});
+</script>
 
 </body>
 </html>
