@@ -668,6 +668,92 @@
     margin-top: 8px;
   }
 
+  /* Clean slider (redesign) */
+  .cs-step {
+    padding: 8px 0;
+  }
+
+  .cs-statement {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.5;
+    margin-bottom: 36px;
+  }
+
+  .cs-score-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #aaa;
+    margin-bottom: 10px;
+  }
+
+  .cs-track-outer {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .cs-numbers-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+    pointer-events: none;
+  }
+
+  .cs-track-area {
+    position: relative;
+    padding: 8px 0 44px;
+  }
+
+  .cs-track-area input[type="range"] {
+    position: relative;
+    z-index: 2;
+  }
+
+  .cs-correct-zone {
+    position: absolute;
+    top: 4px;
+    height: 16px;
+    background: rgba(39, 134, 74, 0.2);
+    border: 2px solid rgba(39, 134, 74, 0.55);
+    border-radius: 4px;
+    display: none;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .cs-correct-zone.show { display: block; }
+
+  .cs-value-pill {
+    position: absolute;
+    bottom: 0;
+    background: var(--green);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: left 0.05s linear;
+  }
+
+  .cs-endpoints {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
   /* Responsive */
   @media (max-width: 640px) {
     body { padding: 12px; }
@@ -819,14 +905,26 @@ const COURSE_CONFIG = {
         "button_text": "Continue →"
       },
       {
-        "type": "text-input",
+        "type": "quiz-slider",
         "id": "tone-practice-1",
         "label": "Tone Practice 1",
-        "title": "Write Your First Toned Message",
-        "instructions": "Take the neutral statement below and rewrite it with a stronger tone that emphasizes American benefit.",
-        "prompt": "Exchange programs help students learn about other cultures.",
-        "placeholder": "Type your rewritten message here...",
-        "button_text": "Submit & Continue →"
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "Exchange programs help students learn about other cultures.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Exactly — 'learn about other cultures' is pure experiential language. No strategy, no national interest angle. This sits right at the bottom of the scale.",
+              "mid": "This is actually non-framed. There's no policy vocabulary or national interest angle — just personal experience. 'Learn about other cultures' is as neutral as exchange messaging gets.",
+              "framed": "This is one of the least framed kinds of statements. No strategy, no national interest — it's entirely personal. The correct answer is non-framed (0–20)."
+            }
+          }
+        ]
       },
       {
         "type": "video",
@@ -839,14 +937,26 @@ const COURSE_CONFIG = {
         "button_text": "Continue →"
       },
       {
-        "type": "text-input",
+        "type": "quiz-slider",
         "id": "tone-practice-2",
         "label": "Tone Practice 2",
-        "title": "Write Your Second Toned Message",
-        "instructions": "Take this statement and reframe it to emphasize security and stability.",
-        "prompt": "Our exchange programs connect people across borders.",
-        "placeholder": "Type your rewritten message here...",
-        "button_text": "Submit & Continue →"
+        "tiers": {
+          "non_framed": { "min": 0, "max": 20, "label": "Non-Framed" },
+          "mid": { "min": 20, "max": 70, "label": "Mid-Tier" },
+          "framed": { "min": 70, "max": 100, "label": "Framed" }
+        },
+        "questions": [
+          {
+            "id": 1,
+            "statement": "Our exchange programs connect people across borders.",
+            "correct_tier": "non_framed",
+            "feedback": {
+              "non_framed": "Right — 'connect people across borders' is simple and human. No policy angle, no mention of what the U.S. gains. This sits at the low end of the scale.",
+              "mid": "This is actually non-framed. 'Connect people across borders' has no strategic vocabulary — it's about as neutral as exchange messaging gets.",
+              "framed": "Not quite — there's no strategic language here at all. 'Connect people across borders' is purely human. The correct answer is non-framed (0–20)."
+            }
+          }
+        ]
       },
       {
         "type": "video",
@@ -1147,30 +1257,29 @@ class CourseApp {
       : '';
 
     return `
-      <div class="step active">
-        <div class="section-label">${section.label}</div>
-        <div class="section-title">${section.title}</div>
-        <div class="section-instructions">${section.instructions}</div>
-        <div class="quiz-counter" id="quiz-counter"></div>
-        <div class="quiz-question" id="quiz-question"></div>
-        <p style="font-size:13px; color:#888; margin-bottom:8px; font-style:italic;">How framed or unframed is this message? Drag the slider to rate it.</p>
-        <div class="slider-container">
-          <div class="slider-labels">
-            <span>${section.scale_labels.low}</span>
-            <span>${section.scale_labels.high}</span>
+      <div class="step active cs-step">
+        <div id="cs-statement" class="cs-statement"></div>
+        <div class="cs-score-label">Score</div>
+        <div class="cs-track-outer">
+          <div class="cs-numbers-row">
+            <span>0</span><span>50</span><span>100</span>
           </div>
-          <div class="slider-track">
-            <input type="range" min="0" max="100" value="50" id="slider" oninput="courseApp.updateSliderValue(this.value)">
+          <div class="cs-track-area" id="cs-track-area">
+            <div class="cs-correct-zone" id="correct-zone"></div>
+            <input type="range" min="0" max="100" value="50" id="slider"
+              oninput="courseApp.updateSliderValue(this.value)">
+            <div class="cs-value-pill" id="value-pill" style="left:50%">50</div>
           </div>
-          <div class="slider-value" id="slider-value">50</div>
-          <div class="slider-hint">${section.hint}</div>
+          <div class="cs-endpoints">
+            <span>Non-Framed</span><span>Framed</span>
+          </div>
         </div>
         <div class="feedback" id="feedback"></div>
         <div class="btn-row">
           ${backButton}
           <div class="btn-group-right">
-            <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit Rating</button>
-            <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next Question →</button>
+            <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit</button>
+            <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next →</button>
           </div>
         </div>
       </div>
@@ -1357,15 +1466,20 @@ class CourseApp {
 
   renderSliderQuestion(section) {
     const question = section.questions[this.currentQuestionIndex];
-    const total = section.questions.length;
 
-    document.getElementById('quiz-counter').textContent = `Question ${this.currentQuestionIndex + 1} of ${total}`;
-    document.getElementById('quiz-question').textContent = question.statement;
+    document.getElementById('cs-statement').textContent = question.statement;
 
     const slider = document.getElementById('slider');
     slider.value = 50;
     slider.disabled = false;
-    document.getElementById('slider-value').textContent = '50';
+
+    const pill = document.getElementById('value-pill');
+    pill.textContent = '50';
+    pill.style.left = '50%';
+    pill.style.background = '';
+
+    const zone = document.getElementById('correct-zone');
+    zone.className = 'cs-correct-zone';
 
     document.getElementById('submit-btn').style.display = 'inline-block';
     document.getElementById('next-btn').style.display = 'none';
@@ -1373,7 +1487,11 @@ class CourseApp {
   }
 
   updateSliderValue(value) {
-    document.getElementById('slider-value').textContent = value;
+    const pill = document.getElementById('value-pill');
+    pill.textContent = value;
+    // Correct for thumb width (28px) so pill tracks the thumb center
+    const pct = value / 100;
+    pill.style.left = `calc(${value}% + ${(0.5 - pct) * 28}px)`;
   }
 
   getTierFromValue(value, tiers) {
@@ -1403,25 +1521,28 @@ class CourseApp {
 
     document.getElementById('slider').disabled = true;
 
+    // Show green correct-zone on the track
+    const tierData = section.tiers[question.correct_tier];
+    const zone = document.getElementById('correct-zone');
+    zone.style.left = tierData.min + '%';
+    zone.style.width = (tierData.max - tierData.min) + '%';
+    zone.className = 'cs-correct-zone show';
+
+    // Color the value pill
+    const pill = document.getElementById('value-pill');
+    pill.style.background = isCorrect ? 'var(--green)' : 'var(--red)';
+
     const feedback = document.getElementById('feedback');
     const feedbackText = question.feedback[userTier];
-
-    if (isCorrect) {
-      feedback.className = 'feedback show correct';
-    } else {
-      feedback.className = 'feedback show neutral';
-    }
+    feedback.className = 'feedback show ' + (isCorrect ? 'correct' : 'neutral');
     feedback.innerHTML = feedbackText;
 
     document.getElementById('submit-btn').style.display = 'none';
 
-    if (this.currentQuestionIndex < section.questions.length - 1) {
-      document.getElementById('next-btn').textContent = 'Next Question →';
-      document.getElementById('next-btn').style.display = 'inline-block';
-    } else {
-      document.getElementById('next-btn').textContent = this.getNextButtonText();
-      document.getElementById('next-btn').style.display = 'inline-block';
-    }
+    const isLast = this.currentQuestionIndex >= section.questions.length - 1;
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.textContent = isLast ? this.getNextButtonText() : 'Next →';
+    nextBtn.style.display = 'inline-block';
   }
 
   nextSliderQuestion() {
