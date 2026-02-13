@@ -1089,7 +1089,7 @@ const COURSE_CONFIG = {
     "completion": {
       "icon": "🎓",
       "title": "Course Complete!",
-      "description": "You've finished the Message Framing module. You can now identify and analyze framing techniques in everyday communication."
+      "description": "Congratulations on completing the SSMP Workshop on framing your messages. You can now identify SSMP language and use strategic tone to appeal to different audiences."
     }
   }
 };
@@ -1177,7 +1177,7 @@ class CourseApp {
           ${videoContent}
         </div>
         <div class="btn-row">
-          ${backButton}
+          ${backButton || '<div></div>'}
           <div class="btn-group-right">
             <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
           </div>
