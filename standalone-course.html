@@ -244,6 +244,18 @@
     cursor: pointer;
   }
 
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 28px;
@@ -615,13 +627,13 @@
 
   .dq-feedback {
     display: none;
-    padding: 14px 18px;
+    padding: 20px 24px;
     border-radius: 10px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.9);
-    background: rgba(255,255,255,0.08);
-    border-left: 3px solid rgba(255,255,255,0.3);
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.10);
+    border-left: 4px solid rgba(255,255,255,0.3);
     margin-bottom: 16px;
     animation: fadeIn 0.3s ease;
   }
@@ -916,12 +928,12 @@ const COURSE_CONFIG = {
         "questions": [
           {
             "id": 1,
-            "statement": "Exchange programs help students learn about other cultures.",
+            "statement": "Through exchange programs, students gain lifelong friendships, discover new cultures, and grow into more confident, curious global learners ready to make a difference.",
             "correct_tier": "non_framed",
             "feedback": {
-              "non_framed": "Exactly — 'learn about other cultures' is pure experiential language. No strategy, no national interest angle. This sits right at the bottom of the scale.",
-              "mid": "This is actually non-framed. There's no policy vocabulary or national interest angle — just personal experience. 'Learn about other cultures' is as neutral as exchange messaging gets.",
-              "framed": "This is one of the least framed kinds of statements. No strategy, no national interest — it's entirely personal. The correct answer is non-framed (0–20)."
+              "non_framed": "Exactly — 'lifelong friendships,' 'discover new cultures,' and 'ready to make a difference' are all personal and experiential. No strategy, no national interest. This sits right at the low end of the scale.",
+              "mid": "This is actually non-framed. The language stays entirely personal — friendships, cultures, personal growth. There's no policy vocabulary or hint of what the U.S. gains. 'Make a difference' sounds purposeful but stays at the human level.",
+              "framed": "Not quite — there's no strategic language here at all. It's about personal growth and friendships, not national interest. The correct answer is non-framed (0–20)."
             }
           }
         ]
@@ -948,12 +960,12 @@ const COURSE_CONFIG = {
         "questions": [
           {
             "id": 1,
-            "statement": "Our exchange programs connect people across borders.",
-            "correct_tier": "non_framed",
+            "statement": "American Councils advances U.S. national security by forging trusted international partnerships, equipping Americans with critical language skills, and strengthening U.S. influence abroad to counter adversarial threats.",
+            "correct_tier": "framed",
             "feedback": {
-              "non_framed": "Right — 'connect people across borders' is simple and human. No policy angle, no mention of what the U.S. gains. This sits at the low end of the scale.",
-              "mid": "This is actually non-framed. 'Connect people across borders' has no strategic vocabulary — it's about as neutral as exchange messaging gets.",
-              "framed": "Not quite — there's no strategic language here at all. 'Connect people across borders' is purely human. The correct answer is non-framed (0–20)."
+              "non_framed": "This is actually heavily framed. 'U.S. national security,' 'counter adversarial threats,' and 'strengthen U.S. influence' are all high-stakes strategic language. Every phrase positions exchange as a national security instrument — there's nothing personal or experiential here.",
+              "mid": "This actually lands in the framed tier. 'U.S. national security,' 'adversarial threats,' and 'strengthen U.S. influence abroad' are about as direct as America-first language gets. Mid-tier statements balance strategy with cooperation — this one is squarely about what the U.S. gains.",
+              "framed": "Spot on — this is in the framed tier. 'National security,' 'counter adversarial threats,' 'strengthen U.S. influence' pack every clause with strategic intent. Exchange programs are explicitly framed here as instruments of American power and defense."
             }
           }
         ]
@@ -1239,7 +1251,6 @@ class CourseApp {
           <div class="dq-btn-row">
             ${backButton}
             <div class="btn-group-right">
-              <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitCategorizationAnswer()" disabled>Submit</button>
               <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next →</button>
             </div>
           </div>
@@ -1310,10 +1321,8 @@ class CourseApp {
       optionsContainer.appendChild(button);
     });
 
-    document.getElementById('submit-btn').disabled = true;
-    document.getElementById('submit-btn').style.display = 'inline-block';
     document.getElementById('next-btn').style.display = 'none';
-    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('feedback').className = 'dq-feedback';
   }
 
   selectCategorizationAnswer(answer) {
@@ -1324,7 +1333,7 @@ class CourseApp {
     selectedButton.classList.add('selected');
 
     this.selectedAnswer = answer;
-    document.getElementById('submit-btn').disabled = false;
+    this.submitCategorizationAnswer();
   }
 
   submitCategorizationAnswer() {
@@ -1354,8 +1363,6 @@ class CourseApp {
 
     feedback.className = 'dq-feedback show ' + (isCorrect ? 'correct' : 'incorrect');
     feedback.innerHTML = feedbackText;
-
-    document.getElementById('submit-btn').style.display = 'none';
 
     const isLast = this.currentQuestionIndex >= section.questions.length - 1;
     const nextBtn = document.getElementById('next-btn');
