@@ -729,6 +729,7 @@
   .cs-track-area input[type="range"] {
     position: relative;
     z-index: 2;
+    transform: scaleX(-1);
   }
 
   .cs-correct-zone {
@@ -1293,7 +1294,7 @@ class CourseApp {
         <div class="cs-score-label">Score</div>
         <div class="cs-track-outer">
           <div class="cs-numbers-row">
-            <span>0</span><span>50</span><span>100</span>
+            <span>100</span><span>50</span><span>0</span>
           </div>
           <div class="cs-track-area" id="cs-track-area">
             <div class="cs-correct-zone" id="correct-zone"></div>
@@ -1302,7 +1303,7 @@ class CourseApp {
             <div class="cs-value-pill" id="value-pill" style="left:50%">50</div>
           </div>
           <div class="cs-endpoints">
-            <span>Non-Framed</span><span>Framed</span>
+            <span>Framed</span><span>Non-Framed</span>
           </div>
         </div>
         <div class="feedback" id="feedback"></div>
@@ -1559,9 +1560,9 @@ class CourseApp {
   updateSliderValue(value) {
     const pill = document.getElementById('value-pill');
     pill.textContent = value;
-    // Correct for thumb width (28px) so pill tracks the thumb center
+    // Slider is visually flipped (scaleX(-1)), so pill mirrors the thumb position
     const pct = value / 100;
-    pill.style.left = `calc(${value}% + ${(0.5 - pct) * 28}px)`;
+    pill.style.left = `calc(${100 - value}% + ${(pct - 0.5) * 28}px)`;
   }
 
   getTierFromValue(value, tiers) {
@@ -1591,10 +1592,10 @@ class CourseApp {
 
     document.getElementById('slider').disabled = true;
 
-    // Show green correct-zone on the track
+    // Show green correct-zone on the track (mirrored since slider is flipped)
     const tierData = section.tiers[question.correct_tier];
     const zone = document.getElementById('correct-zone');
-    zone.style.left = tierData.min + '%';
+    zone.style.left = (100 - tierData.max) + '%';
     zone.style.width = (tierData.max - tierData.min) + '%';
     zone.className = 'cs-correct-zone show';
 
