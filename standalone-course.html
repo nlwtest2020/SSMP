@@ -270,11 +270,11 @@
 
   /* ─── Content card (cream frame) ─── */
   .content-card {
-    max-width: 760px;
+    max-width: 900px;
     margin: 0 auto;
     background: var(--cream);
     border-radius: 20px;
-    padding: 32px;
+    padding: 40px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.25);
   }
 
@@ -292,7 +292,7 @@
 
   /* ─── Section header ─── */
   .section-label {
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -301,7 +301,7 @@
   }
 
   .section-title {
-    font-size: 26px;
+    font-size: 39px;
     font-weight: 800;
     color: var(--dark);
     line-height: 1.25;
@@ -310,14 +310,14 @@
   }
 
   .section-desc {
-    font-size: 14px;
+    font-size: 21px;
     color: var(--mid);
     line-height: 1.75;
     margin-bottom: 28px;
   }
 
   .section-instructions {
-    font-size: 14px;
+    font-size: 21px;
     color: var(--mid);
     line-height: 1.75;
     margin-bottom: 24px;
@@ -350,9 +350,9 @@
 
   /* ─── Buttons ─── */
   .btn {
-    padding: 10px 22px;
+    padding: 13px 28px;
     border-radius: 9px;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: 600;
     font-family: inherit;
     border: none;
@@ -432,7 +432,7 @@
   }
 
   .dq-statement {
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
     color: var(--cream);
     line-height: 1.5;
@@ -449,12 +449,12 @@
 
   .dq-option {
     width: 100%;
-    padding: 13px 24px;
+    padding: 16px 28px;
     background: rgba(245,240,232,0.06);
     border: 1px solid rgba(245,240,232,0.15);
     border-radius: 50px;
     color: rgba(245,240,232,0.75);
-    font-size: 13.5px;
+    font-size: 20px;
     font-weight: 700;
     font-family: inherit;
     cursor: pointer;
@@ -480,7 +480,7 @@
     display: none;
     padding: 18px 22px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 21px;
     line-height: 1.75;
     color: rgba(245,240,232,0.80);
     background: rgba(245,240,232,0.06);
@@ -534,7 +534,7 @@
   }
 
   .quiz-question {
-    font-size: 17px;
+    font-size: 25px;
     font-weight: 700;
     color: var(--dark);
     line-height: 1.5;
@@ -549,11 +549,11 @@
   }
 
   .mc-option {
-    padding: 14px 18px;
+    padding: 16px 20px;
     background: white;
     border: 1.5px solid var(--border-cream);
     border-radius: 11px;
-    font-size: 14px;
+    font-size: 21px;
     font-weight: 500;
     color: var(--mid);
     cursor: pointer;
@@ -597,7 +597,7 @@
   .feedback {
     padding: 16px 20px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 21px;
     line-height: 1.75;
     margin-top: 16px;
     display: none;
@@ -617,7 +617,7 @@
   .cs-step { padding: 4px 0; }
 
   .cs-statement {
-    font-size: 19px;
+    font-size: 28px;
     font-weight: 700;
     color: var(--dark);
     line-height: 1.55;
@@ -739,7 +739,7 @@
   }
 
   .reading-instructions {
-    font-size: 16px;
+    font-size: 24px;
     font-weight: 600;
     color: var(--dark);
     margin-bottom: 20px;
@@ -769,7 +769,7 @@
     border-top: 1px solid var(--border-cream);
     border-right: 1px solid var(--border-cream);
     border-bottom: 1px solid var(--border-cream);
-    font-size: 14px;
+    font-size: 21px;
     font-style: italic;
     color: var(--mid);
     margin-bottom: 16px;
@@ -778,13 +778,13 @@
 
   .text-input-area {
     width: 100%;
-    min-height: 120px;
+    min-height: 140px;
     padding: 16px;
     background: white;
     border: 1.5px solid var(--border-cream);
     border-radius: 12px;
     font-family: inherit;
-    font-size: 14px;
+    font-size: 21px;
     line-height: 1.6;
     resize: vertical;
     transition: border-color 0.2s ease;
@@ -798,7 +798,7 @@
   .resource-section { margin-bottom: 28px; }
 
   .resource-label {
-    font-size: 10px;
+    font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.8px;
@@ -810,12 +810,12 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 20px;
+    padding: 14px 24px;
     background: var(--blue);
     color: white;
     border-radius: 10px;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 19px;
     font-weight: 600;
     transition: all 0.2s ease;
     border: none;
@@ -834,7 +834,7 @@
     border: 1px solid var(--border-cream);
     border-radius: 12px;
     padding: 18px 20px;
-    font-size: 14px;
+    font-size: 21px;
     line-height: 1.75;
     color: var(--mid);
     margin-bottom: 10px;
@@ -1411,9 +1411,7 @@ class CourseApp {
     return `
       <div class="step active">
         <div class="section-label">${section.label}</div>
-        <div class="section-title">${section.title}</div>
         <div class="video-container">${videoContent}</div>
-        <div class="section-desc">${section.description || ''}</div>
         <div class="btn-row">
           ${backBtn}
           <div class="btn-group-right">
