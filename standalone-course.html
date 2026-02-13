@@ -1133,7 +1133,6 @@ class CourseApp {
       container.innerHTML = this.renderVideo(section);
     } else if (section.type === 'timed-reading') {
       container.innerHTML = this.renderTimedReading(section);
-      this.startTimer(section.timer_seconds);
     } else if (section.type === 'quiz-categorization') {
       container.innerHTML = this.renderCategorizationQuiz(section);
       this.setupCategorizationQuiz(section);
@@ -1187,12 +1186,13 @@ class CourseApp {
           <div class="section-label">${section.label}</div>
           <div class="section-title">${section.title}</div>
           <div class="reading-instructions">${section.instructions}</div>
-          <div class="timer-display" id="timer-display">${section.timer_seconds}</div>
           <img src="${section.image_path}" alt="Reading material" class="reading-image">
         </div>
         <div class="btn-row" style="margin-top: 20px;">
           ${backButton}
-          <div class="btn-group-right"></div>
+          <div class="btn-group-right">
+            <button class="btn btn-primary" onclick="courseApp.nextSection()">Continue →</button>
+          </div>
         </div>
       </div>
     `;
