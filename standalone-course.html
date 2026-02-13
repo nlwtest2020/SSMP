@@ -819,14 +819,7 @@ const COURSE_CONFIG = {
         "type": "links-submission",
         "id": "links-submission",
         "label": "Links & Submission",
-        "title": "Resources and Next Steps",
-        "description": "Review these resources and submit your completed work.",
         "embed_url": "https://sites.google.com/view/tonebalancer/home",
-        "links": [
-          { "text": "SSMP Framework Guide", "url": "#" },
-          { "text": "Tone Reference Sheet", "url": "#" },
-          { "text": "Additional Examples", "url": "#" }
-        ],
         "button_text": "Continue →"
       },
       {
@@ -1182,24 +1175,14 @@ class CourseApp {
       ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
       : '';
 
-    const linksHTML = section.links.map(link =>
-      `<a href="${link.url}" class="link-item" target="_blank">${link.text}</a>`
-    ).join('');
-
-    const embedHTML = section.embed_url
-      ? `<iframe class="embed-frame" src="${section.embed_url}" allowfullscreen></iframe>`
-      : '';
-
     return `
-      <div class="step active">
-        <div class="section-label">${section.label}</div>
-        <div class="section-title">${section.title}</div>
-        <div class="section-desc">${section.description}</div>
-        ${embedHTML}
-        <div class="links-list">
-          ${linksHTML}
-        </div>
-        <div class="btn-row">
+      <div class="step active" style="display:flex;flex-direction:column;padding:0;height:100%;">
+        <iframe
+          src="${section.embed_url}"
+          allowfullscreen
+          style="flex:1;width:100%;border:none;min-height:70vh;"
+        ></iframe>
+        <div class="btn-row" style="padding:16px 24px;margin:0;">
           ${backButton}
           <div class="btn-group-right">
             <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
