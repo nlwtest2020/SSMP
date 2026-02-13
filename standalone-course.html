@@ -244,6 +244,18 @@
     cursor: pointer;
   }
 
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
+  input[type="range"]::-moz-range-track {
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 28px;
@@ -615,13 +627,13 @@
 
   .dq-feedback {
     display: none;
-    padding: 14px 18px;
+    padding: 20px 24px;
     border-radius: 10px;
-    font-size: 13px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.9);
-    background: rgba(255,255,255,0.08);
-    border-left: 3px solid rgba(255,255,255,0.3);
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.10);
+    border-left: 4px solid rgba(255,255,255,0.3);
     margin-bottom: 16px;
     animation: fadeIn 0.3s ease;
   }
@@ -916,12 +928,12 @@ const COURSE_CONFIG = {
         "questions": [
           {
             "id": 1,
-            "statement": "Exchange programs help students learn about other cultures.",
+            "statement": "Through exchange programs, students gain lifelong friendships, discover new cultures, and grow into more confident, curious global learners ready to make a difference.",
             "correct_tier": "non_framed",
             "feedback": {
-              "non_framed": "Exactly — 'learn about other cultures' is pure experiential language. No strategy, no national interest angle. This sits right at the bottom of the scale.",
-              "mid": "This is actually non-framed. There's no policy vocabulary or national interest angle — just personal experience. 'Learn about other cultures' is as neutral as exchange messaging gets.",
-              "framed": "This is one of the least framed kinds of statements. No strategy, no national interest — it's entirely personal. The correct answer is non-framed (0–20)."
+              "non_framed": "Exactly — 'lifelong friendships,' 'discover new cultures,' and 'ready to make a difference' are all personal and experiential. No strategy, no national interest. This sits right at the low end of the scale.",
+              "mid": "This is actually non-framed. The language stays entirely personal — friendships, cultures, personal growth. There's no policy vocabulary or hint of what the U.S. gains. 'Make a difference' sounds purposeful but stays at the human level.",
+              "framed": "Not quite — there's no strategic language here at all. It's about personal growth and friendships, not national interest. The correct answer is non-framed (0–20)."
             }
           }
         ]
@@ -948,12 +960,12 @@ const COURSE_CONFIG = {
         "questions": [
           {
             "id": 1,
-            "statement": "Our exchange programs connect people across borders.",
-            "correct_tier": "non_framed",
+            "statement": "American Councils advances U.S. national security by forging trusted international partnerships, equipping Americans with critical language skills, and strengthening U.S. influence abroad to counter adversarial threats.",
+            "correct_tier": "framed",
             "feedback": {
-              "non_framed": "Right — 'connect people across borders' is simple and human. No policy angle, no mention of what the U.S. gains. This sits at the low end of the scale.",
-              "mid": "This is actually non-framed. 'Connect people across borders' has no strategic vocabulary — it's about as neutral as exchange messaging gets.",
-              "framed": "Not quite — there's no strategic language here at all. 'Connect people across borders' is purely human. The correct answer is non-framed (0–20)."
+              "non_framed": "This is actually heavily framed. 'U.S. national security,' 'counter adversarial threats,' and 'strengthen U.S. influence' are all high-stakes strategic language. Every phrase positions exchange as a national security instrument — there's nothing personal or experiential here.",
+              "mid": "This actually lands in the framed tier. 'U.S. national security,' 'adversarial threats,' and 'strengthen U.S. influence abroad' are about as direct as America-first language gets. Mid-tier statements balance strategy with cooperation — this one is squarely about what the U.S. gains.",
+              "framed": "Spot on — this is in the framed tier. 'National security,' 'counter adversarial threats,' 'strengthen U.S. influence' pack every clause with strategic intent. Exchange programs are explicitly framed here as instruments of American power and defense."
             }
           }
         ]
@@ -1061,7 +1073,6 @@ const COURSE_CONFIG = {
         "type": "links-submission",
         "id": "links-submission",
         "label": "Links & Submission",
-        "embed_url": "https://sites.google.com/view/tonebalancer/home",
         "button_text": "Continue →"
       },
       {
@@ -1239,7 +1250,6 @@ class CourseApp {
           <div class="dq-btn-row">
             ${backButton}
             <div class="btn-group-right">
-              <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitCategorizationAnswer()" disabled>Submit</button>
               <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next →</button>
             </div>
           </div>
@@ -1310,10 +1320,8 @@ class CourseApp {
       optionsContainer.appendChild(button);
     });
 
-    document.getElementById('submit-btn').disabled = true;
-    document.getElementById('submit-btn').style.display = 'inline-block';
     document.getElementById('next-btn').style.display = 'none';
-    document.getElementById('feedback').className = 'feedback';
+    document.getElementById('feedback').className = 'dq-feedback';
   }
 
   selectCategorizationAnswer(answer) {
@@ -1324,7 +1332,7 @@ class CourseApp {
     selectedButton.classList.add('selected');
 
     this.selectedAnswer = answer;
-    document.getElementById('submit-btn').disabled = false;
+    this.submitCategorizationAnswer();
   }
 
   submitCategorizationAnswer() {
@@ -1354,8 +1362,6 @@ class CourseApp {
 
     feedback.className = 'dq-feedback show ' + (isCorrect ? 'correct' : 'incorrect');
     feedback.innerHTML = feedbackText;
-
-    document.getElementById('submit-btn').style.display = 'none';
 
     const isLast = this.currentQuestionIndex >= section.questions.length - 1;
     const nextBtn = document.getElementById('next-btn');
@@ -1433,14 +1439,57 @@ class CourseApp {
       ? `<button class="btn btn-back" onclick="courseApp.previousSection()">← Back</button>`
       : '';
 
+    const exchangeDayText = `#ExchangeDay is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.`;
+
     return `
-      <div class="step active" style="display:flex;flex-direction:column;padding:0;height:100%;">
-        <iframe
-          src="${section.embed_url}"
-          allowfullscreen
-          style="flex:1;width:100%;border:none;min-height:70vh;"
-        ></iframe>
-        <div class="btn-row" style="padding:16px 24px;margin:0;">
+      <div class="step active">
+        <div class="section-label">${section.label}</div>
+
+        <!-- 1. Tone Balancer link -->
+        <div style="margin-bottom:24px;">
+          <a href="https://chatgpt.com/g/g-68c1c8797f4c8191bf2c985aea077f7a-tone-balancer-2-0"
+             target="_blank"
+             style="display:inline-flex;align-items:center;gap:10px;padding:14px 22px;background:var(--blue);color:white;border-radius:10px;text-decoration:none;font-size:15px;font-weight:700;transition:background 0.2s ease;"
+             onmouseover="this.style.background='#154360'" onmouseout="this.style.background='var(--blue)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Link to the Tone Balancer
+          </a>
+        </div>
+
+        <!-- 2. Copy/paste text -->
+        <div style="margin-bottom:24px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">Text to Copy &amp; Share</div>
+          <div id="exchange-day-text" style="background:white;border:2px solid #d5cfc5;border-radius:10px;padding:16px 20px;font-size:15px;line-height:1.7;color:var(--dark);margin-bottom:10px;cursor:text;user-select:all;">
+            <strong>#ExchangeDay</strong> is a global celebration of the incredible impact of international exchange. It's a day when participants, community members, and program leaders come together to share cultural practices, embrace American traditions, give back to their communities, and have a blast doing it.
+          </div>
+          <button onclick="
+            navigator.clipboard.writeText(document.getElementById('exchange-day-text').innerText).then(() => {
+              this.textContent = '✓ Copied!';
+              this.style.background = 'var(--green)';
+              setTimeout(() => { this.textContent = 'Copy Text'; this.style.background = ''; }, 2000);
+            });
+          " style="padding:8px 20px;background:#e8f0f7;border:2px solid var(--blue);border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.2s ease;">
+            Copy Text
+          </button>
+        </div>
+
+        <!-- 3. Two Audiences image -->
+        <div style="margin-bottom:24px;">
+          <img src="images/two-audience.png" alt="Two Audiences" style="width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+
+        <!-- 4. MS Form -->
+        <div style="margin-bottom:20px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:12px;">Submit Your Response</div>
+          <iframe width="100%" height="500px"
+            src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DwmHHIIIz0G5qBp8WUSC-ZmoJok0TJtKrrqdEyW0HRFUNEFJNFoxMFRCTEZZNVEwN09MN1MwTTNERC4u&embed=true"
+            frameborder="0" marginwidth="0" marginheight="0"
+            style="border:2px solid #d5cfc5;border-radius:10px;max-width:100%;"
+            allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="btn-row">
           ${backButton}
           <div class="btn-group-right">
             <button class="btn btn-primary" onclick="courseApp.nextSection()">${section.button_text}</button>
