@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SSMP Training</title>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>var ytApiReady = false; function onYouTubeIframeAPIReady() { ytApiReady = true; }</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
@@ -72,10 +74,12 @@
     position: relative;
   }
 
-  .video-container iframe {
+  .video-container iframe,
+  .video-container #yt-player {
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
   }
 
   .video-placeholder {
@@ -1142,6 +1146,7 @@ class CourseApp {
 
     if (section.type === 'video') {
       container.innerHTML = this.renderVideo(section);
+      if (section.youtube_id) this.createYTPlayer(section.youtube_id);
     } else if (section.type === 'timed-reading') {
       container.innerHTML = this.renderTimedReading(section);
     } else if (section.type === 'quiz-categorization') {
@@ -1161,7 +1166,7 @@ class CourseApp {
 
   renderVideo(section) {
     const videoContent = section.youtube_id
-      ? `<iframe src="https://www.youtube.com/embed/${section.youtube_id}" allowfullscreen></iframe>`
+      ? `<div id="yt-player"></div>`
       : `<div class="video-placeholder">
            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
            <span>${section.placeholder_text}</span>
@@ -1184,6 +1189,22 @@ class CourseApp {
         </div>
       </div>
     `;
+  }
+
+  createYTPlayer(videoId) {
+    const tryCreate = () => {
+      if (typeof YT === 'undefined' || !YT.Player) { setTimeout(tryCreate, 100); return; }
+      new YT.Player('yt-player', {
+        videoId,
+        playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+        events: {
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED) courseApp.nextSection();
+          }
+        }
+      });
+    };
+    tryCreate();
   }
 
   renderTimedReading(section) {
