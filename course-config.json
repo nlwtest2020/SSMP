@@ -55,7 +55,7 @@
             "statement": "Educational exchanges built pro-democracy networks in 47 nations, fostering civic resilience and reducing the appeal of violent extremism.",
             "correct": "Safer",
             "feedback": {
-              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to global stability, which directly makes America safer.",
+              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to international stability, which directly makes America safer.",
               "Stronger": "Pro-democracy networks do strengthen institutions, but the clincher here is 'reducing the appeal of violent extremism.' That's explicitly about security and safety. When you see language about countering threats or extremism, think Safer.",
               "More Prosperous": "This one has no economic indicators at all — no dollars, jobs, or trade. It's focused on democracy, civic resilience, and countering extremism, all of which are security outcomes. The correct answer is Safer."
             }
@@ -171,12 +171,12 @@
           },
           {
             "id": 6,
-            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and global stability.",
+            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and international stability.",
             "correct_tier": "framed",
             "feedback": {
-              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'global stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
-              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'global stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
-              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and global stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
+              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'international stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
+              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'international stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
+              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and international stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
             }
           }
         ]
