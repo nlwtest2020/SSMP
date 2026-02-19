@@ -1046,7 +1046,7 @@ const COURSE_CONFIG = {
             "statement": "Educational exchanges built pro-democracy networks in 47 nations, fostering civic resilience and reducing the appeal of violent extremism.",
             "correct": "Safer",
             "feedback": {
-              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to global stability, which directly makes America safer.",
+              "Safer": "Spot on! 'Reducing the appeal of violent extremism' is a clear security outcome. Pro-democracy networks and civic resilience also contribute to international stability, which directly makes America safer.",
               "Stronger": "Pro-democracy networks do strengthen institutions, but the clincher here is 'reducing the appeal of violent extremism.' That's explicitly about security and safety. When you see language about countering threats or extremism, think Safer.",
               "More Prosperous": "This one has no economic indicators at all — no dollars, jobs, or trade. It's focused on democracy, civic resilience, and countering extremism, all of which are security outcomes. The correct answer is Safer."
             }
@@ -1223,12 +1223,12 @@ const COURSE_CONFIG = {
           },
           {
             "id": 6,
-            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and global stability.",
+            "statement": "Strategic exchange programs advance U.S. security, strengthen alliances, and equip future leaders to uphold American prosperity and international stability.",
             "correct_tier": "framed",
             "feedback": {
-              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'global stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
-              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'global stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
-              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and global stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
+              "non_framed": "This is the most framed statement in the set. The very first word is 'Strategic,' and from there it's wall-to-wall national interest language: 'U.S. security,' 'American prosperity,' 'international stability.' There's almost no reference to the exchange experience itself — it's entirely about what the U.S. gains.",
+              "mid": "This one's actually heavily framed. Count the strategic keywords: 'Strategic,' 'U.S. security,' 'alliances,' 'American prosperity,' 'international stability.' Every clause serves a national interest argument. Mid-tier statements balance this with cooperative or personal language — this one doesn't.",
+              "framed": "Nailed it — this is the most framed statement in the set. It opens with 'Strategic,' names 'U.S. security' directly, and closes with 'American prosperity and international stability.' Every word is doing framing work. This is what it sounds like when exchange messaging is fully oriented toward national interest."
             }
           }
         ]
@@ -1498,6 +1498,7 @@ class CourseApp {
           <div class="dq-btn-row">
             ${backBtn}
             <div class="btn-group-right">
+              <button class="btn btn-back" id="prev-question-btn" style="display:none;" onclick="courseApp.previousCategorizationQuestion()">← Previous</button>
               <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextCategorizationQuestion()">Next →</button>
             </div>
           </div>
@@ -1511,8 +1512,9 @@ class CourseApp {
   }
 
   renderCategorizationQuestion(section) {
-    const question = section.questions[this.currentQuestionIndex];
-    const total    = section.questions.length;
+    const question     = section.questions[this.currentQuestionIndex];
+    const total        = section.questions.length;
+    const storedAnswer = (this.quizAnswers[section.id] || [])[this.currentQuestionIndex];
 
     document.getElementById('quiz-counter').textContent = `Question ${this.currentQuestionIndex + 1} of ${total}`;
     document.getElementById('quiz-question').textContent = question.statement;
@@ -1526,12 +1528,32 @@ class CourseApp {
       button.className = 'dq-option';
       button.textContent = (emojis[option] ? emojis[option] + '  ' : '') + option.toUpperCase();
       button.dataset.answer = option;
-      button.onclick = () => this.selectCategorizationAnswer(option);
+      if (storedAnswer) {
+        button.disabled = true;
+        if (option === question.correct)                                   button.classList.add('correct');
+        else if (option === storedAnswer.selected && !storedAnswer.isCorrect) button.classList.add('incorrect');
+        if (option === storedAnswer.selected)                              button.classList.add('selected');
+      } else {
+        button.onclick = () => this.selectCategorizationAnswer(option);
+      }
       optionsContainer.appendChild(button);
     });
 
-    document.getElementById('next-btn').style.display = 'none';
-    document.getElementById('feedback').className = 'dq-feedback';
+    const prevBtn = document.getElementById('prev-question-btn');
+    if (prevBtn) prevBtn.style.display = this.currentQuestionIndex > 0 ? 'inline-block' : 'none';
+
+    if (storedAnswer) {
+      const feedback = document.getElementById('feedback');
+      feedback.className = 'dq-feedback show ' + (storedAnswer.isCorrect ? 'correct' : 'incorrect');
+      feedback.innerHTML = question.feedback[storedAnswer.selected];
+      const isLast  = this.currentQuestionIndex >= section.questions.length - 1;
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.textContent   = isLast ? 'See Results →' : 'Next →';
+      nextBtn.style.display = 'inline-block';
+    } else {
+      document.getElementById('next-btn').style.display = 'none';
+      document.getElementById('feedback').className = 'dq-feedback';
+    }
   }
 
   selectCategorizationAnswer(answer) {
@@ -1577,6 +1599,14 @@ class CourseApp {
       this.renderCategorizationQuestion(section);
     } else {
       this.showCategorizationScore(section);
+    }
+  }
+
+  previousCategorizationQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      const section = this.config.course.sections[this.currentSectionIndex];
+      this.renderCategorizationQuestion(section);
     }
   }
 
@@ -1639,6 +1669,7 @@ class CourseApp {
         <div class="btn-row">
           ${backBtn}
           <div class="btn-group-right">
+            <button class="btn btn-back" id="prev-question-btn" style="display:none;" onclick="courseApp.previousSliderQuestion()">← Previous</button>
             <button class="btn btn-submit" id="submit-btn" onclick="courseApp.submitSliderAnswer()">Submit</button>
             <button class="btn btn-primary" id="next-btn" style="display:none;" onclick="courseApp.nextSliderQuestion()">Next →</button>
           </div>
@@ -1652,25 +1683,55 @@ class CourseApp {
   }
 
   renderSliderQuestion(section) {
-    const question = section.questions[this.currentQuestionIndex];
+    const question     = section.questions[this.currentQuestionIndex];
+    const storedAnswer = (this.quizAnswers[section.id] || [])[this.currentQuestionIndex];
 
     document.getElementById('cs-statement').textContent = question.statement;
 
-    const slider   = document.getElementById('slider');
-    slider.value   = 50;
-    slider.disabled = false;
+    const slider = document.getElementById('slider');
+    const pill   = document.getElementById('value-pill');
+    const zone   = document.getElementById('correct-zone');
 
-    const pill     = document.getElementById('value-pill');
-    pill.textContent = '50';
-    pill.style.left = '50%';
-    pill.style.background = '';
+    const prevBtn = document.getElementById('prev-question-btn');
+    if (prevBtn) prevBtn.style.display = this.currentQuestionIndex > 0 ? 'inline-block' : 'none';
 
-    const zone     = document.getElementById('correct-zone');
-    zone.className = 'cs-correct-zone';
+    if (storedAnswer) {
+      const pct       = storedAnswer.value / 100;
+      slider.value    = storedAnswer.value;
+      slider.disabled = true;
 
-    document.getElementById('submit-btn').style.display = 'inline-block';
-    document.getElementById('next-btn').style.display   = 'none';
-    document.getElementById('feedback').className       = 'feedback';
+      pill.textContent     = storedAnswer.value;
+      pill.style.left      = `calc(${100 - storedAnswer.value}% + ${(pct - 0.5) * 28}px)`;
+      pill.style.background = storedAnswer.isCorrect ? 'var(--success)' : 'var(--danger)';
+
+      const tierData   = section.tiers[question.correct_tier];
+      zone.style.left  = (100 - tierData.max) + '%';
+      zone.style.width = (tierData.max - tierData.min) + '%';
+      zone.className   = 'cs-correct-zone show';
+
+      const feedback     = document.getElementById('feedback');
+      feedback.className = 'feedback show ' + (storedAnswer.isCorrect ? 'correct' : 'neutral');
+      feedback.innerHTML = question.feedback[storedAnswer.tier];
+
+      document.getElementById('submit-btn').style.display = 'none';
+      const isLast  = this.currentQuestionIndex >= section.questions.length - 1;
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.textContent   = isLast ? this.getNextButtonText() : 'Next →';
+      nextBtn.style.display = 'inline-block';
+    } else {
+      slider.value    = 50;
+      slider.disabled = false;
+
+      pill.textContent      = '50';
+      pill.style.left       = '50%';
+      pill.style.background = '';
+
+      zone.className = 'cs-correct-zone';
+
+      document.getElementById('submit-btn').style.display = 'inline-block';
+      document.getElementById('next-btn').style.display   = 'none';
+      document.getElementById('feedback').className       = 'feedback';
+    }
   }
 
   updateSliderValue(value) {
@@ -1731,6 +1792,14 @@ class CourseApp {
       this.renderSliderQuestion(section);
     } else {
       this.nextSection();
+    }
+  }
+
+  previousSliderQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex--;
+      const section = this.config.course.sections[this.currentSectionIndex];
+      this.renderSliderQuestion(section);
     }
   }
 
